@@ -262,7 +262,9 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6 text-left">
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Metric Space $(X, d)$</p>
+                        <div className="text-white font-medium mb-2">
+                          <LatexRenderer text={"Metric Space $(X, d)$"} />
+                        </div>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"A metric space is a set $X$ with a function $d: X \\times X \\to [0, \\infty)$ such that for all $x, y, z \\in X$:\n\n* $d(x, y) \\ge 0$, and $d(x, y) = 0 \\iff x = y$\n* $d(x, y) = d(y, x)$ (Symmetry)\n* $d(x, z) \\le d(x, y) + d(y, z)$ (Triangle Inequality)"} />
                         </div>
@@ -370,11 +372,216 @@ const AppContent = () => {
                 </div>
               )}
 
-              {activeChapter > 2 && (
-                <div className="h-[400px] flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 rounded-full border-2 border-white/5 border-t-indigo-500 animate-spin mb-6" />
-                  <h3 className="text-xl font-bold text-white mb-2">Transcribing Chapter {activeChapter}</h3>
-                  <p className="text-slate-500 text-sm">Organizing proofs and practice problems...</p>
+              {activeSubject === 'Analysis I' && activeChapter === 3 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Continuity
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Continuous Functions</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $X$ and $Y$ be metric spaces. A function $f: X \\to Y$ is **continuous** at $p \\in X$ if for every $\\epsilon > 0$, there exists $\\delta > 0$ such that:\n\n$$d_X(x, p) < \\delta \\implies d_Y(f(x), f(p)) < \\epsilon$$\n\nEquivalently, $f$ is continuous if for every open set $V \\subset Y$, the inverse image $f^{-1}(V)$ is open in $X$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Continuity and Compactness</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $f: X \\to Y$ is continuous and $K \\subset X$ is compact, then $f(K)$ is compact. \n\n**Corollary (Extreme Value Theorem):** A continuous real-valued function on a compact set attains its maximum and minimum."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Uniform Continuity"
+                        context={"Consider $f(x) = 1/x$ on the interval $(0, 1]$."}
+                        question={"Is $f$ uniformly continuous on this interval?"}
+                        solution={"No. As $x \\to 0$, the function grows without bound, and for a fixed $\\epsilon$, the required $\\delta$ becomes arbitrarily small. However, if we restrict $f$ to a **compact** interval $[a, 1]$ with $a > 0$, it becomes uniformly continuous."}
+                      />
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="Uniform Continuity on Compact Sets"
+                    theorem={"If $f: X \\to Y$ is continuous and $X$ is compact, then $f$ is uniformly continuous on $X$."}
+                    steps={[
+                      "Let $\\epsilon > 0$. Since $f$ is continuous, for each $p \\in X$, there is a $\\delta_p > 0$ such that $d(x, p) < \\delta_p \\implies d(f(x), f(p)) < \\epsilon/2$.",
+                      "Consider the open balls $B(p, \\delta_p/2)$. These cover $X$.",
+                      "Since $X$ is compact, there is a finite subcover $B(p_1, \\delta_1/2), \\dots, B(p_k, \\delta_k/2)$.",
+                      "Let $\\delta = \\min(\\delta_1/2, \\dots, \\delta_k/2)$.",
+                      "If $d(p, q) < \\delta$, then $p$ is in some $B(p_i, \\delta_i/2)$. Then $d(p, p_i) < \\delta_i/2$.",
+                      "By triangle inequality, $d(q, p_i) \\le d(q, p) + d(p, p_i) < \\delta + \\delta_i/2 \\le \\delta_i$.",
+                      "Thus $d(f(p), f(p_i)) < \\epsilon/2$ and $d(f(q), f(p_i)) < \\epsilon/2$.",
+                      "Finally, $d(f(p), f(q)) \\le d(f(p), f(p_i)) + d(f(p_i), f(q)) < \\epsilon$. Q.E.D."
+                    ]}
+                  />
+
+                  <Quiz 
+                    question="Which of the following implies that a function $f: X \to Y$ is continuous?"
+                    options={[
+                      "The image of every open set is open.",
+                      "The inverse image of every closed set is closed.",
+                      "The function is monotonic.",
+                      "The domain X is finite."
+                    ]}
+                    correctAnswer={1}
+                    explanation="A standard topological characterization of continuity is that the inverse image of every open set is open. By taking complements, this is equivalent to saying the inverse image of every closed set is closed."
+                  />
+                </div>
+              )}
+
+              {activeChapter > 3 && activeChapter < 5 && activeSubject === 'Analysis I' && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Differentiation
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">The Derivative</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $f: [a, b] \\to \\mathbb{R}$. For any $x \\in [a, b]$, we define the derivative $f'(x)$ as:\n\n$$f'(x) = \\lim_{t \\to x} \\frac{f(t) - f(x)}{t - x}$$\n\nprovided the limit exists. If $f$ is differentiable on $(a, b)$ and continuous at the endpoints, it is differentiable on $[a, b]$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Mean Value Theorem (MVT)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then there exists $c \\in (a, b)$ such that:\n\n$$f(b) - f(a) = (b - a)f'(c)$$\n\nThis is a generalization of Rolle's Theorem (where $f(a) = f(b)$)."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Taylor's Theorem"
+                        context={"Let $f$ have $n$ derivatives on $[a, b]$."}
+                        question={"What is the remainder term $R_n$ in Taylor's expansion?"}
+                        solution={"Taylor's Theorem states that $f(b) = P_n(b) + R_n(b)$, where $P_n$ is the $n$-th order Taylor polynomial. The remainder $R_n(b)$ can be expressed as $\\frac{f^{(n)}(\beta)}{n!}(b-a)^n$ for some $\\beta$ between $a$ and $b$ (Lagrange form)."}
+                      />
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="The Mean Value Theorem"
+                    theorem={"If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, there is a $c \in (a, b)$ with $f(b)-f(a) = f'(c)(b-a)$."}
+                    steps={[
+                      "Define a helper function $h(x) = f(x) - [f(a) + \\frac{f(b)-f(a)}{b-a}(x-a)]$.",
+                      "Check endpoints: $h(a) = f(a) - f(a) = 0$.",
+                      "$h(b) = f(b) - [f(a) + f(b) - f(a)] = 0$.",
+                      "Since $h(a) = h(b) = 0$, by Rolle's Theorem, there exists $c \\in (a, b)$ such that $h'(c) = 0$.",
+                      "Differentiate $h(x)$: $h'(x) = f'(x) - \\frac{f(b)-f(a)}{b-a}$.",
+                      "Setting $h'(c) = 0$ gives $f'(c) = \\frac{f(b)-f(a)}{b-a}$. Q.E.D."
+                    ]}
+                  />
+
+                  <Quiz 
+                    question="If $f'(x) = 0$ for all $x \in (a, b)$, what can we conclude about $f$?"
+                    options={[
+                      "f is increasing.",
+                      "f is constant.",
+                      "f is a polynomial of degree 1.",
+                      "f is not continuous."
+                    ]}
+                    correctAnswer={1}
+                    explanation="By the Mean Value Theorem, for any $x_1, x_2 \in (a, b)$, $f(x_2) - f(x_1) = f'(c)(x_2 - x_1)$. Since $f'(c) = 0$, we have $f(x_2) = f(x_1)$ for all $x_1, x_2$, meaning $f$ is constant."
+                  />
+                </div>
+              )}
+
+              {activeChapter > 4 && activeChapter < 6 && activeSubject === 'Analysis I' && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      The Riemann-Stieltjes Integral
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Riemann-Stieltjes Integral</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $\\alpha$ be a monotonically increasing function on $[a, b]$. We say $f$ is Riemann-Stieltjes integrable with respect to $\\alpha$, denoted $f \\in \\mathscr{R}(\\alpha)$, if the upper and lower integrals coincide:\n\n$$\\int_a^b f \\, d\\alpha = \\sup \\underline{S}(P, f, \\alpha) = \\inf \\overline{S}(P, f, \\alpha)$$\n\nwhere the sup and inf are taken over all partitions $P$ of $[a, b]$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Fundamental Theorem of Calculus (FTC)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"**Part I:** If $f \\in \\mathscr{R}$ on $[a, b]$, and $F(x) = \\int_a^x f(t) \\, dt$, then $F$ is continuous on $[a, b]$ and $F'(x) = f(x)$ at any point $x$ where $f$ is continuous.\n\n**Part II:** If $f \\in \\mathscr{R}$ and $F' = f$, then $\\int_a^b f(x) \\, dx = F(b) - F(a)$."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Integration by Parts"
+                        context={"Let $F$ and $G$ be differentiable functions on $[a, b]$."}
+                        question={"What is the formula for integration by parts?"}
+                        solution={"The formula is derived from the product rule: $\\int_a^b F(x)G'(x) \\, dx = F(b)G(b) - F(a)G(a) - \\int_a^b F'(x)G(x) \\, dx$. This also holds for Riemann-Stieltjes integrals under appropriate conditions."}
+                      />
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="Fundamental Theorem of Calculus (Part I)"
+                    theorem={"If $f$ is continuous at $x_0$, and $F(x) = \\int_a^x f(t)dt$, then $F'(x_0) = f(x_0)$."}
+                    steps={[
+                      "By definition, $F'(x_0) = \\lim_{h \\to 0} \\frac{F(x_0+h) - F(x_0)}{h}$.",
+                      "Substituting the integral form: $\\frac{1}{h} \\int_{x_0}^{x_0+h} f(t) \\, dt$.",
+                      "Subtract $f(x_0)$: $\\frac{1}{h} \\int_{x_0}^{x_0+h} [f(t) - f(x_0)] \\, dt$.",
+                      "Since $f$ is continuous at $x_0$, for any $\\epsilon > 0$, there exists $\\delta > 0$ such that $|t - x_0| < \\delta \\implies |f(t) - f(x_0)| < \\epsilon$.",
+                      "For $|h| < \\delta$, the integral term is bounded: $|\\frac{1}{h} \\int_{x_0}^{x_0+h} f(t) - f(x_0) \\, dt| \\le \\frac{1}{h} \\cdot h \\cdot \\epsilon = \\epsilon$.",
+                      "As $\\epsilon$ was arbitrary, the limit as $h \\to 0$ is exactly 0. Thus $F'(x_0) = f(x_0)$. Q.E.D."
+                    ]}
+                  />
+                </div>
+              )}
+
+              {activeChapter === 6 && activeSubject === 'Analysis I' && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Sequences & Series of Functions
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Uniform Convergence</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A sequence of functions $\{f_n\}$ converges **uniformly** to $f$ on $E$ if for every $\\epsilon > 0$, there exists $N$ such that $n \\ge N$ implies:\n\n$$|f_n(x) - f(x)| < \\epsilon \\quad \\text{for ALL } x \\in E$$\n\nNote that $N$ depends **only** on $\\epsilon$, not on $x$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Weierstrass M-test</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $|f_n(x)| \\le M_n$ for all $x \\in E$, and if $\\sum M_n$ converges, then $\\sum f_n(x)$ converges uniformly on $E$."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Power Series"
+                        context={"Consider a series of the form $\\sum c_n x^n$."}
+                        question={"What is the radius of convergence $R$?"}
+                        solution={"By the Root Test, the radius of convergence $R$ is given by $1/R = \\limsup_{n \\to \\infty} \\sqrt[n]{|c_n|}$. The series converges absolutely for $|x| < R$ and uniformly on any compact subset within that radius."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="If a sequence of continuous functions $f_n$ converges uniformly to $f$, what can we say about $f$?"
+                    options={[
+                      "f is differentiable.",
+                      "f is continuous.",
+                      "f is constant.",
+                      "f is a polynomial."
+                    ]}
+                    correctAnswer={1}
+                    explanation="This is a fundamental theorem: the uniform limit of a sequence of continuous functions is itself continuous."
+                  />
                 </div>
               )}
             </div>
