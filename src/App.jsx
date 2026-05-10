@@ -58,14 +58,14 @@ const AppContent = () => {
       { id: 5, title: 'Maps $[T]_\\beta^\\gamma$' },
       { id: 6, title: 'Change of Basis' },
       { id: 7, title: 'Determinants & Multilinearity' },
-      { id: 8, title: 'Spectral Theory ($p, m$)' },
+      { id: 8, title: <LatexRenderer text="Spectral Theory ($p, m$)" inline={true} /> },
     ],
     'Linear Algebra II': [
       { id: 1, title: 'Inner Product Spaces' },
       { id: 2, title: 'Orthogonality & Gram-Schmidt' },
       { id: 3, title: 'The Adjoint $T^*$' },
       { id: 4, title: 'The Spectral Theorem' },
-      { id: 5, title: 'Jordan Form ($J_k, K_\\lambda$)' },
+      { id: 5, title: <LatexRenderer text="Jordan Form ($J_k, K_\\lambda$)" inline={true} /> },
       { id: 6, title: 'Singular Value Decomposition' },
       { id: 7, title: 'Bilinear & Quadratic Forms' },
       { id: 8, title: 'Multilinear Algebra & Tensors' },
@@ -472,7 +472,7 @@ const AppContent = () => {
 
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Axiom</h4>
-                        <p className="text-white font-medium mb-2">Completeness of $\mathbb{R}$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Completeness of $\\mathbb{R}$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"The real numbers $\\mathbb{R}$ are characterized by the **Least Upper Bound Property**: Every non-empty set of real numbers that is bounded above has a least upper bound (supremum) in $\\mathbb{R}$.\n\n*Note: This distinguishes $\\mathbb{R}$ from $\\mathbb{Q}$, as the set $\{x \\in \\mathbb{Q} : x^2 < 2\}$ has no supremum in $\\mathbb{Q}$.*"} />
                         </div>
@@ -1460,7 +1460,7 @@ const AppContent = () => {
                       <Example 
                         title="Taylor's Theorem"
                         context={"Let $f$ have $n$ derivatives on $[a, b]$."}
-                        question={"What is the remainder term $R_n$ in Taylor's expansion?"}
+                        question={<LatexRenderer text="What is the remainder term $R_n$ in Taylor's expansion?" inline={true} />}
                         solution={"Taylor's Theorem states that $f(b) = P_n(b) + R_n(b)$, where $P_n$ is the $n$-th order Taylor polynomial. The remainder $R_n(b)$ can be expressed as $\\frac{f^{(n)}(\beta)}{n!}(b-a)^n$ for some $\\beta$ between $a$ and $b$ (Lagrange form)."}
                       />
                     </div>
@@ -1566,7 +1566,7 @@ const AppContent = () => {
                       <Example 
                         title="Power Series"
                         context={"Consider a series of the form $\\sum c_n x^n$."}
-                        question={"What is the radius of convergence $R$?"}
+                        question={<LatexRenderer text="What is the radius of convergence $R$?" inline={true} />}
                         solution={"By the Root Test, the radius of convergence $R$ is given by $1/R = \\limsup_{n \\to \\infty} \\sqrt[n]{|c_n|}$. The series converges absolutely for $|x| < R$ and uniformly on any compact subset within that radius."}
                       />
                     </div>
