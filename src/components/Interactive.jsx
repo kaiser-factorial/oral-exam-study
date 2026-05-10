@@ -5,7 +5,7 @@ import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 
 // Helper to render text with mixed LaTeX
-const LatexRenderer = ({ text }) => {
+export const LatexRenderer = ({ text }) => {
   if (typeof text !== 'string') return text;
   
   // Split by $ but keep the delimiters to identify math parts
