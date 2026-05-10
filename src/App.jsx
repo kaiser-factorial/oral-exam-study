@@ -25,10 +25,10 @@ const AppContent = () => {
   const activeChapter = chapterId ? parseInt(chapterId) : 1
 
   const subjects = [
-    { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30' },
-    { id: 'Analysis II', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/30' },
-    { id: 'Linear Algebra I', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30' },
-    { id: 'Linear Algebra II', color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/30' },
+    { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', desc: 'Metric spaces, sequences, and fundamental integration theory.' },
+    { id: 'Analysis II', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.' },
+    { id: 'Linear Algebra I', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', desc: 'Vector space duality, quotients, and spectral theory.' },
+    { id: 'Linear Algebra II', color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.' },
   ]
 
   const chapters = {
@@ -129,7 +129,9 @@ const AppContent = () => {
                   <BookOpen size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-1">{sub.id}</h3>
-                <p className="text-sm text-slate-500">Master core concepts & fundamental proofs.</p>
+                <p className="text-sm text-slate-500">
+                  <LatexRenderer text={sub.desc} inline={true} />
+                </p>
               </button>
             ))}
           </motion.div>
