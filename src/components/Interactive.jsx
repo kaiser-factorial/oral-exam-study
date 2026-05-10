@@ -12,7 +12,7 @@ import rehypeKatex from 'rehype-katex'
 export const LatexRenderer = ({ text, inline = false }) => {
   if (!text || typeof text !== 'string') return null;
   
-  return (
+  const content = (
     <ReactMarkdown 
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
@@ -25,6 +25,8 @@ export const LatexRenderer = ({ text, inline = false }) => {
       {text}
     </ReactMarkdown>
   );
+
+  return inline ? <span className="latex-container">{content}</span> : <div>{content}</div>;
 };
 
 export const Quiz = ({ question, options, correctAnswer, explanation }) => {
