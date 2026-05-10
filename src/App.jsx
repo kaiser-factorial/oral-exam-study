@@ -371,6 +371,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Gram-Schmidt Process</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 3 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> The Adjoint $T^*$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Normal & Self-Adjoint</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -403,6 +409,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 8 && "Master the Diagonalization Test: T is diagonalizable iff its minimal polynomial splits into distinct linear factors."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 1 && "Understand that the inner product is the 'compass' that brings geometry to algebra."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 2 && "Explain the Best Approximation Theorem: the closest vector in W to v is its orthogonal projection."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 3 && "Prove why self-adjoint operators must have real eigenvalues: use the definition of the adjoint."}
                       </li>
                     </ul>
                   </div>
@@ -704,6 +711,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The Pythagorean Theorem in Inner Product Spaces states: if u is orthogonal to v, then ||u+v||^2 = ||u||^2 + ||v||^2. This is a direct consequence of the inner product axioms."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 3 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="The Adjoint & Normal Operators" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Fundamental Definition</h4>
+                        <p className="text-white font-medium mb-2">The Adjoint Operator $T^*$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For $T \\in \\mathcal{L}(V)$, the **adjoint** $T^*$ is the unique operator such that:\n\n$$\\langle T(v), w \\rangle = \\langle v, T^*(w) \\rangle \\quad \\forall v, w \\in V$$\n\n**Key Properties**:\n1. $(S+T)^* = S^* + T^*$\n2. $(cT)^* = \\overline{c}T^*$\n3. $(T^*)^* = T$\n4. $(ST)^* = T^*S^*$"} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Operator Hierarchy</h4>
+                        <p className="text-white font-medium mb-2">Self-Adjoint, Unitary, & Normal</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Self-Adjoint (Hermitian)**: $T = T^*$. (Matrix is conjugate transpose $A = A^H$).\n2. **Unitary**: $T^* = T^{-1}$. (Preserves inner products: $\\langle Tv, Tw \\rangle = \\langle v, w \\rangle$).\n3. **Normal**: $TT^* = T^*T$. (Includes all self-adjoint and unitary operators)."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Oral Proof Mastery</h4>
+                        <p className="text-white font-medium mb-2">Real Eigenvalues of Self-Adjoint Operators</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"**Theorem**: If $T$ is self-adjoint, every eigenvalue $\\lambda \\in \\mathbb{R}$.\n\n**Proof Sketch**:\nSuppose $Tv = \\lambda v$ with $v \\neq 0$. Then:\n$$\\lambda \\langle v, v \\rangle = \\langle \\lambda v, v \\rangle = \\langle Tv, v \\rangle$$\nSince $T$ is self-adjoint:\n$$\\langle Tv, v \\rangle = \\langle v, Tv \\rangle = \\langle v, \\lambda v \\rangle = \\overline{\\lambda} \\langle v, v \\rangle$$\nThus $\\lambda \\langle v, v \\rangle = \\overline{\\lambda} \\langle v, v \\rangle$. Since $\\langle v, v \\rangle > 0$, we must have $\\lambda = \\overline{\\lambda}$, which implies $\\lambda \\in \\mathbb{R}$."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Adjoint of a Matrix"
+                        context={"Let $A = \\begin{pmatrix} i & 2 \\\\ 1 & -i \\end{pmatrix}$ act on $\\mathbb{C}^2$ with standard inner product."}
+                        question={"Find the adjoint $A^*$."}
+                        solution={"The adjoint is the conjugate transpose $A^H$:\n\n1. Transpose: $\\begin{pmatrix} i & 1 \\\\ 2 & -i \\end{pmatrix}$\n2. Conjugate: $\\begin{pmatrix} -i & 1 \\\\ 2 & i \\end{pmatrix}$\n\nCheck: $\\langle Av, w \\rangle = (Av)^H w = v^H A^H w = \\langle v, A^* w \\rangle$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which class of operators is the broadest?"
+                    options={[
+                      "Self-Adjoint",
+                      "Unitary",
+                      "Normal",
+                      "Orthogonal"
+                    ]}
+                    correctAnswer={2}
+                    explanation="An operator is Normal if TT* = T*T. This category includes all Self-Adjoint operators (where T = T*) and all Unitary operators (where T* = T^-1)."
                   />
                 </div>
               )}
