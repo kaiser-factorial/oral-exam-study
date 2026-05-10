@@ -14,6 +14,11 @@ const AppContent = () => {
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
+  // Auto-scroll to top on navigation
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
+
   // Sync state with URL
   const view = subjectId ? 'study' : 'landing'
   const activeSubject = subjectId ? decodeURIComponent(subjectId) : 'Analysis I'
@@ -28,7 +33,7 @@ const AppContent = () => {
 
   const chapters = {
     'Analysis I': [
-      { id: 1, title: 'Real Numbers & Metric Spaces' },
+      { id: 1, title: 'Metric Spaces & Real Numbers' },
       { id: 2, title: 'Convergence & Sequences' },
       { id: 3, title: 'Continuity' },
       { id: 4, title: 'Differentiation' },
@@ -184,7 +189,7 @@ const AppContent = () => {
                 >
                   {isSidebarOpen ? <X size={18} /> : <Menu size={18} />}
                 </button>
-                <h2 className="text-sm font-bold text-slate-400 flex items-center gap-2">
+                <h2 className="text-sm font-bold text-slate-400 flex items-center gap-2 text-left">
                   {activeSubject} <ChevronRight size={14} /> Chapter {activeChapter}
                 </h2>
               </div>
@@ -214,14 +219,14 @@ const AppContent = () => {
                 <h3 className="text-3xl font-black text-white mb-6">
                   {chapters[activeSubject]?.find(c => c.id === activeChapter)?.title}
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div className="space-y-4">
                     <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">In this chapter:</p>
                     <ul className="text-sm text-slate-400 space-y-2">
                       {activeSubject === 'Analysis I' && activeChapter === 1 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Completeness Axiom & Supremum</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Topology of Metric Spaces</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Metric Space Axioms</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Completeness & Heine-Borel</li>
                         </>
                       )}
                       {activeSubject === 'Analysis I' && activeChapter === 2 && (
@@ -239,7 +244,7 @@ const AppContent = () => {
                     <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Key Oral Focus:</p>
                     <ul className="text-sm text-slate-400 space-y-2">
                       <li className="flex items-center gap-2 text-indigo-300/80 italic font-medium leading-relaxed">
-                        {activeSubject === 'Analysis I' && activeChapter === 1 && "Be ready to explain the L.U.B. property and Heine-Borel."}
+                        {activeSubject === 'Analysis I' && activeChapter === 1 && "Be ready to verify distance axioms for non-standard metrics."}
                         {activeSubject === 'Analysis I' && activeChapter === 2 && "Understand the relationship between Cauchy and Convergent sequences."}
                         {activeChapter > 2 && "Focus on fundamental definitions and counterexamples."}
                       </li>
@@ -252,23 +257,36 @@ const AppContent = () => {
                 <div className="space-y-12">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      The Real Field <InlineMath math={"\\mathbb{R}"} />
+                      Metric Spaces
                     </h3>
-                    <div className="prose prose-invert max-w-none space-y-6">
+                    <div className="prose prose-invert max-w-none space-y-6 text-left">
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">The Supremum (Least Upper Bound)</p>
+                        <p className="text-white font-medium mb-2">Metric Space $(X, d)$</p>
                         <div className="text-slate-300 text-sm">
-                          Let <InlineMath math={"S \\subset \\mathbb{R}"} /> be a non-empty set. <InlineMath math={"L"} /> is the supremum of <InlineMath math={"S"} /> if it is an upper bound and for any <InlineMath math={"\\epsilon > 0"} />, there is an <InlineMath math={"x \\in S"} /> such that <InlineMath math={"x > L - \\epsilon"} />.
+                          A metric space is a set $X$ with a function $d: X \times X \to [0, \infty)$ such that for all $x, y, z \in X$:
+                          <ul className="list-disc ml-6 mt-2 space-y-1">
+                            <li>$d(x, y) \ge 0$, and $d(x, y) = 0 \iff x = y$</li>
+                            <li>$d(x, y) = d(y, x)$ (Symmetry)</li>
+                            <li>$d(x, z) \le d(x, y) + d(y, z)$ (Triangle Inequality)</li>
+                          </ul>
                         </div>
                       </div>
 
                       <Example 
-                        title="Non-contained Supremum"
-                        context="Consider the open interval S = (0, 1)."
-                        question="Find the supremum and determine if it belongs to S."
-                        solution="The supremum is 1. Since 1 is not in (0, 1), the supremum is not contained in the set. This illustrates the difference between a supremum and a maximum."
+                        title="The Discrete Metric"
+                        context={"Let $X$ be any non-empty set."}
+                        question={"Define $d(x, y) = 0$ if $x=y$ and $d(x, y) = 1$ if $x \\ne y$. Is this a metric?"}
+                        solution={"Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \\le d(x,y) + d(y,z)$ holds. If $x \\ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be 1, so $1 \\le 1$ or $1 \\le 2$."}
                       />
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Axiom</h4>
+                        <p className="text-white font-medium mb-2">Least Upper Bound Property</p>
+                        <div className="text-slate-300 text-sm">
+                          A set $S \subset \mathbb{R}$ is bounded above if there exists $M$ such that $x \le M$ for all $x \in S$. $\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\mathbb{R}$.
+                        </div>
+                      </div>
                     </div>
                   </section>
 
@@ -285,21 +303,21 @@ const AppContent = () => {
                   />
 
                   <Quiz 
-                    question="Which property distinguishes a compact set in R^n from a closed set?"
+                    question={"Which axiom of a metric space is violated if we define $d(x, y) = (x - y)^2$ on $\\mathbb{R}$?"}
                     options={[
-                      "It must contain all its limit points.",
-                      "It must be bounded.",
-                      "It must be an interval.",
-                      "It must be non-empty."
+                      "Non-negativity",
+                      "Symmetry",
+                      "Triangle Inequality",
+                      "None, it is a valid metric"
                     ]}
-                    correctAnswer={1}
-                    explanation="While both closed and compact sets contain their limit points, only compact sets are guaranteed to be bounded in R^n (Heine-Borel Theorem)."
+                    correctAnswer={2}
+                    explanation={"Take x=0, z=2, y=1. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since 4 is not less than or equal to 2, the triangle inequality fails."}
                   />
                 </div>
               )}
 
               {activeSubject === 'Analysis I' && activeChapter === 2 && (
-                <div className="space-y-12">
+                <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
                       Convergence & Sequences
@@ -329,7 +347,7 @@ const AppContent = () => {
                       "Suppose p_n \\to p and p_n \\to q where p \\ne q.",
                       "Then d(p, q) > 0. Let \\epsilon = d(p, q) / 2.",
                       "Since p_n \\to p, there exists N_1 such that d(p_n, p) < \\epsilon for all n \\ge N_1.",
-                      "Since p_n \\to q, there exists N_2 such that d(p_n, q) < \\epsilon for all n \ge N_2.",
+                      "Since p_n \\to q, there exists N_2 such that d(p_n, q) < \\epsilon for all n \\ge N_2.",
                       "For n \\ge \\max(N_1, N_2), the triangle inequality gives: d(p, q) \\le d(p, p_n) + d(p_n, q) < \\epsilon + \\epsilon = d(p, q).",
                       "This results in the contradiction d(p, q) < d(p, q). Thus p = q. Q.E.D."
                     ]}

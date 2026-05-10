@@ -4,6 +4,10 @@ import { CheckCircle2, Circle, HelpCircle, ChevronDown, ChevronUp, Lightbulb, Be
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 
+// Helper to check if string contains LaTeX
+const hasLatex = (str) => typeof str === 'string' && (str.includes('$') || str.includes('\\'));
+const cleanLatex = (str) => str.replace(/\$/g, '');
+
 export const Quiz = ({ question, options, correctAnswer, explanation }) => {
   const [selected, setSelected] = useState(null)
   const [showExplanation, setShowExplanation] = useState(false)
@@ -13,9 +17,9 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
       <h4 className="font-bold text-white mb-4 flex items-center gap-2">
         <HelpCircle size={18} className="text-indigo-400" /> Section Quiz
       </h4>
-      <p className="text-sm text-slate-300 mb-6 leading-relaxed">
-        {question}
-      </p>
+      <div className="text-sm text-slate-300 mb-6 leading-relaxed">
+        {hasLatex(question) ? <InlineMath math={cleanLatex(question)} /> : question}
+      </div>
       
       <div className="space-y-3">
         {options.map((option, idx) => (
@@ -32,7 +36,7 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
                 : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10'
             }`}
           >
-            {option}
+            <span>{hasLatex(option) ? <InlineMath math={cleanLatex(option)} /> : option}</span>
             {selected === idx && (idx === correctAnswer ? <CheckCircle2 size={16} /> : <Circle size={16} />)}
           </button>
         ))}
@@ -46,7 +50,9 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
             className="mt-6 pt-6 border-t border-white/10 overflow-hidden"
           >
             <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">Logic</p>
-            <p className="text-sm text-slate-400 leading-relaxed">{explanation}</p>
+            <div className="text-sm text-slate-400 leading-relaxed">
+              {hasLatex(explanation) ? <InlineMath math={cleanLatex(explanation)} /> : explanation}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -68,35 +74,41 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
 
       <div className="mb-6 p-4 bg-slate-900/50 rounded-lg border border-white/5 italic text-slate-300 text-sm">
         <strong className="text-emerald-400 not-italic block mb-1 uppercase text-[10px] tracking-widest font-black">Theorem:</strong>
-        {typeof theorem === 'string' && (theorem.includes('$') || theorem.includes('\\')) ? (
-          <BlockMath math={theorem.replace(/\$/g, '')} />
+        {hasLatex(theorem) ? (
+          <BlockMath math={cleanLatex(theorem)} />
         ) : theorem}
       </div>
 
       <div className="space-y-4">
-        {steps.map((step, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ 
-              opacity: idx < visibleSteps ? 1 : 0.3,
-              x: 0,
-              filter: idx < visibleSteps ? 'blur(0px)' : 'blur(2px)'
-            }}
-            className={`p-4 rounded-xl border transition-all ${
-              idx < visibleSteps ? 'bg-white/5 border-white/10 text-slate-200' : 'bg-transparent border-white/5 text-slate-600'
-            }`}
-          >
-            <div className="flex gap-4">
-              <span className="font-mono text-[10px] opacity-50 mt-1">STEP 0{idx + 1}</span>
-              <div className="text-sm leading-relaxed">
-                {typeof step === 'string' && (step.includes('$') || step.includes('\\')) ? (
-                  <InlineMath math={step.replace(/\$/g, '')} />
-                ) : step}
+        <AnimatePresence mode="popLayout">
+          {steps.slice(0, visibleSteps).map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-4 rounded-xl border bg-white/5 border-white/10 text-slate-200 shadow-sm"
+            >
+              <div className="flex gap-4">
+                <span className="font-mono text-[10px] opacity-50 mt-1 shrink-0">STEP 0{idx + 1}</span>
+                <div className="text-sm leading-relaxed">
+                  {hasLatex(step) ? <InlineMath math={cleanLatex(step)} /> : step}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+        
+        {visibleSteps < steps.length && (
+           <motion.div
+            key="placeholder"
+            className="p-4 rounded-xl border border-dashed border-white/5 bg-transparent opacity-30"
+           >
+             <div className="flex gap-4 items-center">
+               <span className="font-mono text-[10px]">STEP 0{visibleSteps + 1}</span>
+               <div className="h-4 w-24 bg-white/10 rounded-full animate-pulse" />
+             </div>
+           </motion.div>
+        )}
       </div>
 
       <div className="mt-8 flex gap-4">
@@ -130,8 +142,8 @@ export const Example = ({ title, context, question, solution }) => {
       </h4>
       
       <div className="text-sm text-slate-300 space-y-4 mb-6">
-        <p className="leading-relaxed">{context}</p>
-        <p className="font-bold text-white">{question}</p>
+        <div className="leading-relaxed">{hasLatex(context) ? <InlineMath math={cleanLatex(context)} /> : context}</div>
+        <div className="font-bold text-white">{hasLatex(question) ? <InlineMath math={cleanLatex(question)} /> : question}</div>
       </div>
 
       <button
@@ -150,9 +162,7 @@ export const Example = ({ title, context, question, solution }) => {
           >
             <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Solution</p>
             <div className="text-sm text-slate-400 leading-relaxed">
-              {typeof solution === 'string' && (solution.includes('$') || solution.includes('\\')) ? (
-                <InlineMath math={solution.replace(/\$/g, '')} />
-              ) : solution}
+              {hasLatex(solution) ? <BlockMath math={cleanLatex(solution)} /> : solution}
             </div>
           </motion.div>
         )}
