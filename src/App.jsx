@@ -322,29 +322,37 @@ const AppContent = () => {
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
                         <p className="text-white font-medium mb-2">Convergence in Metric Spaces</p>
                         <div className="text-slate-300 text-sm">
-                          A sequence <InlineMath math={"\\{p_n\\}"} /> in a metric space <InlineMath math={"(X, d)"} /> is said to converge if there exists <InlineMath math={"p \\in X"} /> such that for every <InlineMath math={"\\epsilon > 0"} />, there is an integer <InlineMath math={"N"} /> such that <InlineMath math={"n \\ge N"} /> implies <InlineMath math={"d(p_n, p) < \\epsilon"} />.
+                          <LatexRenderer text={"A sequence $\{p_n\}$ in a metric space $(X, d)$ is said to **converge** if there exists $p \\in X$ such that for every $\\epsilon > 0$, there is an integer $N$ such that $n \\ge N$ implies $d(p_n, p) < \\epsilon$.\n\nWe call $p$ the **limit** of $\{p_n\}$, and write $p_n \\to p$ or $\\lim_{n \\to \\infty} p_n = p$."} />
                         </div>
                       </div>
 
                       <Example 
                         title="Convergence to the Boundary"
                         context={"Let $X = (0, 1]$ with the Euclidean metric. Consider the sequence $p_n = 1/n$."}
-                        question="Does this sequence converge in $X$?"
-                        solution={"No. While the sequence $1/n$ converges to $0$ in $\\mathbb{R}$, the point $0$ is not in the set $X = (0, 1]$. Therefore, the sequence does not converge in the metric space $X$."}
+                        question={"Does this sequence converge in $X$?"}
+                        solution={"No. While the sequence $1/n$ converges to $0$ in $\\mathbb{R}$, the point $0$ is not in the set $X = (0, 1]$. Therefore, the sequence does not converge in the metric space $X$. This highlights that convergence depends on the **underlying space** $X$, not just the metric."}
                       />
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Cauchy Sequences & Completeness</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A sequence $\{p_n\}$ is a **Cauchy sequence** if for every $\\epsilon > 0$, there exists $N$ such that $n, m \\ge N$ implies $d(p_n, p_m) < \\epsilon$.\n\nA metric space $X$ is **complete** if every Cauchy sequence in $X$ converges to a point in $X$. Example: $\\mathbb{R}$ is complete (the Cantor Intersection Theorem or Nested Interval Property), but $\\mathbb{Q}$ is not."} />
+                        </div>
+                      </div>
                     </div>
                   </section>
 
                   <ProofBuilder 
                     title="Uniqueness of Limits"
-                    theorem={"\\text{A sequence in a metric space can have at most one limit.}"}
+                    theorem={"A sequence in a metric space can have at most one limit."}
                     steps={[
-                      "Suppose p_n \\to p and p_n \\to q where p \\ne q.",
-                      "Then d(p, q) > 0. Let \\epsilon = d(p, q) / 2.",
-                      "Since p_n \\to p, there exists N_1 such that d(p_n, p) < \\epsilon for all n \\ge N_1.",
-                      "Since p_n \\to q, there exists N_2 such that d(p_n, q) < \\epsilon for all n \\ge N_2.",
-                      "For n \\ge \\max(N_1, N_2), the triangle inequality gives: d(p, q) \\le d(p, p_n) + d(p_n, q) < \\epsilon + \\epsilon = d(p, q).",
-                      "This results in the contradiction d(p, q) < d(p, q). Thus p = q. Q.E.D."
+                      "Suppose $p_n \\to p$ and $p_n \\to q$ where $p \\ne q$.",
+                      "Then $d(p, q) > 0$. Let $\\epsilon = d(p, q) / 2$.",
+                      "Since $p_n \\to p$, there exists $N_1$ such that $d(p_n, p) < \\epsilon$ for all $n \\ge N_1$.",
+                      "Since $p_n \\to q$, there exists $N_2$ such that $d(p_n, q) < \\epsilon$ for all $n \\ge N_2$.",
+                      "For $n \\ge \\max(N_1, N_2)$, the triangle inequality gives: $d(p, q) \\le d(p, p_n) + d(p_n, q) < \\epsilon + \\epsilon = d(p, q)$.",
+                      "This results in the contradiction $d(p, q) < d(p, q)$. Thus $p = q$. Q.E.D."
                     ]}
                   />
 

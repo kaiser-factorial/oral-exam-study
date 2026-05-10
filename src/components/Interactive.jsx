@@ -93,8 +93,8 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
 
       <div className="mb-6 p-4 bg-slate-900/50 rounded-lg border border-white/5 italic text-slate-300 text-sm">
         <strong className="text-emerald-400 not-italic block mb-1 uppercase text-[10px] tracking-widest font-black">Theorem:</strong>
-        <div className="not-italic py-2">
-           <BlockMath math={theorem.replace(/\$/g, '')} />
+        <div className="not-italic py-2 text-center">
+           <LatexRenderer text={theorem} />
         </div>
       </div>
 
