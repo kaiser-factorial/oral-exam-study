@@ -63,9 +63,9 @@ const AppContent = () => {
     'Linear Algebra II': [
       { id: 1, title: 'Inner Product Spaces' },
       { id: 2, title: 'Orthogonality & Gram-Schmidt' },
-      { id: 3, title: 'The Adjoint & Normal Operators' },
+      { id: 3, title: 'The Adjoint $T^*$' },
       { id: 4, title: 'The Spectral Theorem' },
-      { id: 5, title: 'Jordan Canonical Form' },
+      { id: 5, title: 'Jordan Form ($J_k(\\lambda), K_\\lambda$)' },
       { id: 6, title: 'Singular Value Decomposition' },
       { id: 7, title: 'Bilinear & Quadratic Forms' },
       { id: 8, title: 'Multilinear Algebra & Tensors' },
@@ -373,7 +373,7 @@ const AppContent = () => {
                       )}
                       {activeSubject === 'Linear Algebra II' && activeChapter === 3 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> The Adjoint $T^*$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> <LatexRenderer text="The Adjoint $T^*$" inline={true} /></li>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Normal & Self-Adjoint</li>
                         </>
                       )}
@@ -386,7 +386,7 @@ const AppContent = () => {
                       {activeSubject === 'Linear Algebra II' && activeChapter === 5 && (
                         <>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Jordan Canonical Form</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Generalized Eigenspaces</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> <LatexRenderer text="Generalized Eigenspaces $K_\\lambda$" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Linear Algebra II' && activeChapter === 6 && (
@@ -970,12 +970,12 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Jordan Canonical Form" inline={true} />
+                      <LatexRenderer text="Jordan Form ($J_k, K_\\lambda$)" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Concept</h4>
-                        <p className="text-white font-medium mb-2">Generalized Eigenspaces $K_\lambda$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Generalized Eigenspaces $K_\\lambda$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"When $am(\\lambda) > gm(\\lambda)$, the operator $T$ is missing eigenvectors. We expand the search to **generalized eigenvectors**:\n\n$$K_\\lambda = \\{v \\in V : (T - \\lambda I)^k v = 0 \\text{ for some } k \\ge 1\\}$$\n\n**Primary Decomposition Theorem**: If $p(t)$ splits, then $V$ is the direct sum of its generalized eigenspaces: $V = K_{\\lambda_1} \\oplus \\dots \\oplus K_{\\lambda_m}$."} />
                         </div>
@@ -983,7 +983,7 @@ const AppContent = () => {
 
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Matrix Structure</h4>
-                        <p className="text-white font-medium mb-2">The Jordan Block $J_k(\lambda)$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="The Jordan Block $J_k(\\lambda)$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"A **Jordan block** of size $k$ is a $k \\times k$ matrix of the form:\n\n$$J_k(\\lambda) = \\begin{pmatrix} \\lambda & 1 & 0 & \\dots \\\\ 0 & \\lambda & 1 & \\dots \\\\ \\vdots & \\vdots & \\ddots & 1 \\\\ 0 & 0 & \\dots & \\lambda \\end{pmatrix}$$\n\n**Theorem**: Every operator $T$ (on a space where $p(t)$ splits) has a basis in which its matrix is a block-diagonal collection of Jordan blocks. This is the **Jordan Canonical Form**."} />
                         </div>
@@ -1024,12 +1024,12 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="The Adjoint & Normal Operators" inline={true} />
+                      <LatexRenderer text="The Adjoint $T^*$" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Fundamental Definition</h4>
-                        <p className="text-white font-medium mb-2">The Adjoint Operator $T^*$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="The Adjoint Operator $T^*$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"For $T \\in \\mathcal{L}(V)$, the **adjoint** $T^*$ is the unique operator such that:\n\n$$\\langle T(v), w \\rangle = \\langle v, T^*(w) \\rangle \\quad \\forall v, w \\in V$$\n\n**Key Properties**:\n1. $(S+T)^* = S^* + T^*$\n2. $(cT)^* = \\overline{c}T^*$\n3. $(T^*)^* = T$\n4. $(ST)^* = T^*S^*$"} />
                         </div>
