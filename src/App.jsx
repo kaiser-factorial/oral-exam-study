@@ -163,7 +163,7 @@ const AppContent = () => {
                     <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] ${activeChapter === chap.id ? 'bg-indigo-500 text-white' : 'bg-white/5'}`}>
                       {chap.id}
                     </span>
-                    {chap.title}
+                    <LatexRenderer text={chap.title} inline={true} />
                   </button>
                 ))}
               </div>
@@ -217,7 +217,7 @@ const AppContent = () => {
                   <Info size={14} /> Chapter Overview
                 </div>
                 <h3 className="text-3xl font-black text-white mb-6">
-                  {chapters[activeSubject]?.find(c => c.id === activeChapter)?.title}
+                  <LatexRenderer text={chapters[activeSubject]?.find(c => c.id === activeChapter)?.title} inline={true} />
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div className="space-y-4">

@@ -9,7 +9,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 
 // Robust renderer using react-markdown + math plugins
-export const LatexRenderer = ({ text }) => {
+export const LatexRenderer = ({ text, inline = false }) => {
   if (typeof text !== 'string') return text;
   
   return (
@@ -17,7 +17,7 @@ export const LatexRenderer = ({ text }) => {
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       components={{
-        p: ({node, ...props}) => <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
+        p: ({node, ...props}) => inline ? <span {...props} /> : <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
         ul: ({node, ...props}) => <ul className="list-disc ml-6 mt-2 mb-4 space-y-1" {...props} />,
         li: ({node, ...props}) => <li className="text-slate-300" {...props} />,
       }}
