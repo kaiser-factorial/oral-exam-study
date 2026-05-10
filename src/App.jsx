@@ -679,7 +679,7 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">$\sigma$-Algebras</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="$\sigma$-Algebras" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"Let $X$ be a set. A collection $\\mathscr{F}$ of subsets of $X$ is a **$\\sigma$-algebra** if:\n\n1. $\\emptyset \\in \\mathscr{F}$\n2. $A \\in \\mathscr{F} \\implies A^c \\in \\mathscr{F}$ (Closed under complements)\n3. $\{A_n\}_{n=1}^\\infty \\subset \\mathscr{F} \\implies \\bigcup_{n=1}^\\infty A_n \\in \\mathscr{F}$ (Closed under countable unions)\n\nThe pair $(X, \\mathscr{F})$ is called a **measurable space**."} />
                         </div>
@@ -687,7 +687,7 @@ const AppContent = () => {
 
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
-                        <p className="text-white font-medium mb-2">Borel $\sigma$-Algebras</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Borel $\sigma$-Algebras" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"The **Borel $\\sigma$-algebra** $\\mathscr{B}$ on a topological space $X$ is the smallest $\\sigma$-algebra containing all open sets of $X$. In $\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
                         </div>
@@ -726,7 +726,7 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Outer Measure $m^*$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Outer Measure $m^*$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"For any subset $A \\subset \\mathbb{R}$, the **Lebesgue outer measure** $m^*(A)$ is defined as:\n\n$$m^*(A) = \\inf \\left\\{ \\sum_{n=1}^\\infty \\ell(I_n) : A \\subset \\bigcup_{n=1}^\\infty I_n, \\, I_n \\text{ are open intervals} \\right\\}$$\n\nwhere $\\ell(I)$ denotes the length of the interval $I$."} />
                         </div>
@@ -881,7 +881,7 @@ const AppContent = () => {
 
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
-                        <p className="text-white font-medium mb-2">$L^1$ Integrability</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="$L^1$ Integrability" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"A general measurable function $f$ is **integrable** if $\\int |f| \\, d\\mu < \\infty$. In this case, we define:\n\n$$\\int f \\, d\\mu = \\int f^+ \\, d\\mu - \\int f^- \\, d\\mu$$"} />
                         </div>
