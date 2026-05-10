@@ -235,8 +235,29 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Cauchy Sequences & Completeness</li>
                         </>
                       )}
-                      {activeSubject === 'Analysis I' && activeChapter > 2 && (
-                        <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Core Concepts & Notation</li>
+                      {activeSubject === 'Analysis I' && activeChapter === 3 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Continuity & Function Limits</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Uniform Continuity & Compactness</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis I' && activeChapter === 4 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Derivatives & Local Linearization</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> The Mean Value & Taylor Theorems</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis I' && activeChapter === 5 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Riemann-Stieltjes Integration</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> The Fundamental Theorem of Calculus</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis I' && activeChapter === 6 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Uniform vs. Pointwise Convergence</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Power Series & Interchanging Limits</li>
+                        </>
                       )}
                     </ul>
                   </div>
@@ -246,7 +267,10 @@ const AppContent = () => {
                       <li className="flex items-center gap-2 text-indigo-300/80 italic font-medium leading-relaxed">
                         {activeSubject === 'Analysis I' && activeChapter === 1 && "Be ready to verify distance axioms for non-standard metrics."}
                         {activeSubject === 'Analysis I' && activeChapter === 2 && "Understand the relationship between Cauchy and Convergent sequences."}
-                        {activeChapter > 2 && "Focus on fundamental definitions and counterexamples."}
+                        {activeSubject === 'Analysis I' && activeChapter === 3 && "Know the topological definition of continuity (inverse images of open sets)."}
+                        {activeSubject === 'Analysis I' && activeChapter === 4 && "Master the MVT as the bridge between derivative and function values."}
+                        {activeSubject === 'Analysis I' && activeChapter === 5 && "Explain the role of the monotonically increasing integrator alpha."}
+                        {activeSubject === 'Analysis I' && activeChapter === 6 && "Justify why uniform convergence is required to preserve continuity/integrability."}
                       </li>
                     </ul>
                   </div>
