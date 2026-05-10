@@ -678,6 +678,119 @@ const AppContent = () => {
                   />
                 </div>
               )}
+
+              {activeSubject === 'Analysis II' && activeChapter === 2 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Lebesgue Outer Measure
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Outer Measure $m^*$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For any subset $A \\subset \\mathbb{R}$, the **Lebesgue outer measure** $m^*(A)$ is defined as:\n\n$$m^*(A) = \\inf \\left\\{ \\sum_{n=1}^\\infty \\ell(I_n) : A \\subset \\bigcup_{n=1}^\\infty I_n, \\, I_n \\text{ are open intervals} \\right\\}$$\n\nwhere $\\ell(I)$ denotes the length of the interval $I$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Countable Subadditivity</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Outer measure is **countably subadditive**. For any sequence of sets $\{A_n\}$:\n\n$$m^*\\left( \\bigcup_{n=1}^\\infty A_n \\right) \\le \\sum_{n=1}^\\infty m^*(A_n)$$"} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Outer Measure of Countable Sets"
+                        context={"Let $A = \\mathbb{Q} \\cap [0, 1]$."}
+                        question={"What is $m^*(A)$?"}
+                        solution={"$m^*(A) = 0$. Since $\\mathbb{Q}$ is countable, we can enumerate its elements as $\{q_1, q_2, \\dots\}$. For any $\\epsilon > 0$, cover each $q_n$ with an interval $I_n$ of length $\\epsilon/2^n$. Then $\\sum \\ell(I_n) = \\epsilon$. Since $\\epsilon$ is arbitrary, $m^*(A) = 0$."}
+                      />
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="Subadditivity Proof"
+                    theorem={"$m^*(\\cup A_n) \\le \\sum m^*(A_n)$"}
+                    steps={[
+                      "If any $m^*(A_n) = \\infty$, the inequality is trivial. Assume all $m^*(A_n) < \\infty$.",
+                      "For each $n$ and any $\\epsilon > 0$, choose a cover of open intervals $\{I_{n,k}\}$ for $A_n$ such that $\\sum_k \\ell(I_{n,k}) < m^*(A_n) + \\epsilon/2^n$.",
+                      "Then the collection $\{I_{n,k}\}_{n,k=1}^\\infty$ is a countable cover of $\\bigcup A_n$ by open intervals.",
+                      "By definition of outer measure: $m^*(\\bigcup A_n) \\le \\sum_n \\sum_k \\ell(I_{n,k})$.",
+                      "Substituting our bound: $m^*(\\bigcup A_n) \\le \\sum_n (m^*(A_n) + \\epsilon/2^n) = \\sum m^*(A_n) + \\epsilon$.",
+                      "Since $\\epsilon$ was arbitrary, the result follows. Q.E.D."
+                    ]}
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Analysis II' && activeChapter === 3 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Lebesgue Measure & Measurable Sets
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Carathéodory's Criterion</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A set $E \\subset \\mathbb{R}$ is **Lebesgue measurable** if for every set $A \\subset \\mathbb{R}$ (the 'test set'):\n\n$$m^*(A) = m^*(A \\cap E) + m^*(A \\cap E^c)$$\n\nThis condition ensures that $E$ splits any set $A$ additively."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Structure of Measurable Sets</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $E$ is measurable, it is 'almost' a nice set. Specifically:\n\n1. For any $\\epsilon > 0$, there is an open set $G \\supset E$ such that $m^*(G \\setminus E) < \\epsilon$.\n2. $E = H \\setminus Z$ where $H$ is a $G_\\delta$ set and $m^*(Z) = 0$."} />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which of the following sets is always Lebesgue measurable?"
+                    options={[
+                      "Any subset of R.",
+                      "Any Borel set.",
+                      "The Vitali set.",
+                      "Only intervals."
+                    ]}
+                    correctAnswer={1}
+                    explanation="The Lebesgue $\sigma$-algebra contains all Borel sets (the $\sigma$-algebra generated by open sets). The Vitali set is a classic example of a non-measurable set."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Analysis II' && activeChapter === 4 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      General Measures & Measurable Functions
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Measure Space $(X, \\mathscr{F}, \\mu)$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A **measure** $\\mu$ on a $\\sigma$-algebra $\\mathscr{F}$ is a function $\\mu: \\mathscr{F} \\to [0, \\infty]$ that satisfies $\\mu(\\emptyset)=0$ and is countably additive. A triple $(X, \\mathscr{F}, \\mu)$ is called a **measure space**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
+                        <p className="text-white font-medium mb-2">Measurable Functions</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A function $f: X \\to \\mathbb{R}$ is **measurable** if for every $\\alpha \\in \\mathbb{R}$, the set $\{x \\in X : f(x) > \\alpha\}$ is in $\\mathscr{F}$.\n\nThis is the precise condition needed to define the Lebesgue integral of $f$."} />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              )}
             </div>
           </main>
         </div>
