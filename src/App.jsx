@@ -264,27 +264,27 @@ const AppContent = () => {
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
                         <p className="text-white font-medium mb-2">Metric Space $(X, d)$</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={`A metric space is a set $X$ with a function $d: X \\times X \\to [0, \\infty)$ such that for all $x, y, z \\in X$:`} />
+                          <LatexRenderer text={String.raw`A metric space is a set $X$ with a function $d: X \times X \to [0, \infty)$ such that for all $x, y, z \in X$:`} />
                           <ul className="list-disc ml-6 mt-2 space-y-1">
-                            <li><InlineMath math="d(x, y) \ge 0"/>, and <InlineMath math="d(x, y) = 0 \iff x = y"/></li>
-                            <li><InlineMath math="d(x, y) = d(y, x)"/> (Symmetry)</li>
-                            <li><InlineMath math="d(x, z) \le d(x, y) + d(y, z)"/> (Triangle Inequality)</li>
+                            <li><InlineMath math={String.raw`d(x, y) \ge 0`}/>, and <InlineMath math={String.raw`d(x, y) = 0 \iff x = y`}/></li>
+                            <li><InlineMath math={String.raw`d(x, y) = d(y, x)`}/> (Symmetry)</li>
+                            <li><InlineMath math={String.raw`d(x, z) \le d(x, y) + d(y, z)`}/> (Triangle Inequality)</li>
                           </ul>
                         </div>
                       </div>
 
                       <Example 
                         title="The Discrete Metric"
-                        context={`Let $X$ be any non-empty set.`}
-                        question={`Define $d(x, y) = 0$ if $x=y$ and $d(x, y) = 1$ if $x \\ne y$. Is this a metric?`}
-                        solution={`Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \\le d(x,y) + d(y,z)$ holds. If $x \\ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be 1, so $1 \\le 1$ or $1 \\le 2$.`}
+                        context={String.raw`Let $X$ be any non-empty set.`}
+                        question={String.raw`Define $d(x, y) = 0$ if $x=y$ and $d(x, y) = 1$ if $x \ne y$. Is this a metric?`}
+                        solution={String.raw`Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \le d(x,y) + d(y,z)$ holds. If $x \ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be 1, so $1 \le 1$ or $1 \le 2$.`}
                       />
 
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Axiom</h4>
                         <p className="text-white font-medium mb-2">Least Upper Bound Property</p>
                         <div className="text-slate-300 text-sm">
-                          {`A set $S \\subset \\mathbb{R}$ is bounded above if there exists $M$ such that $x \\le M$ for all $x \\in S$. The Real Field $\\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\\mathbb{R}$.`}
+                          <LatexRenderer text={String.raw`A set $S \subset \mathbb{R}$ is bounded above if there exists $M$ such that $x \le M$ for all $x \in S$. The Real Field $\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\mathbb{R}$.`} />
                         </div>
                       </div>
                     </div>
@@ -292,18 +292,18 @@ const AppContent = () => {
 
                   <ProofBuilder 
                     title="Heine-Borel Theorem"
-                    theorem={"\\text{A subset } K \\subset \\mathbb{R}^n \\text{ is compact if and only if it is closed and bounded.}"}
+                    theorem={String.raw`\text{A subset } K \subset \mathbb{R}^n \text{ is compact if and only if it is closed and bounded.}`}
                     steps={[
-                      "Statement: A subset of $\\mathbb{R}^n$ is compact if and only if it is closed and bounded.",
-                      "Proof (=>): If $K$ is compact, it is bounded because we can cover it with open balls $B(0, n)$. Since it's compact, a finite subcover exists, hence $K$ is bounded. It is closed because in a Hausdorff space (like $\\mathbb{R}^n$), compact sets are closed.",
-                      "Proof (<=): We use the property that a closed subset of a compact set is compact. Since $K$ is bounded, it is contained in some large closed $k$-cell (hyper-rectangle).",
-                      "A $k$-cell is compact (by the nested interval property or bisection argument).",
-                      "Since $K$ is a closed subset of this compact $k$-cell, $K$ is itself compact. Q.E.D."
+                      String.raw`Statement: A subset of $\mathbb{R}^n$ is compact if and only if it is closed and bounded.`,
+                      String.raw`Proof (=>): If $K$ is compact, it is bounded because we can cover it with open balls $B(0, n)$. Since it's compact, a finite subcover exists, hence $K$ is bounded. It is closed because in a Hausdorff space (like $\mathbb{R}^n$), compact sets are closed.`,
+                      String.raw`Proof (<=): We use the property that a closed subset of a compact set is compact. Since $K$ is bounded, it is contained in some large closed $k$-cell (hyper-rectangle).`,
+                      String.raw`A $k$-cell is compact (by the nested interval property or bisection argument).`,
+                      String.raw`Since $K$ is a closed subset of this compact $k$-cell, $K$ is itself compact. Q.E.D.`
                     ]}
                   />
 
                   <Quiz 
-                    question={`Which axiom of a metric space is violated if we define $d(x, y) = (x - y)^2$ on $\\mathbb{R}$?`}
+                    question={String.raw`Which axiom of a metric space is violated if we define $d(x, y) = (x - y)^2$ on $\mathbb{R}$?`}
                     options={[
                       "Non-negativity",
                       "Symmetry",
@@ -311,7 +311,7 @@ const AppContent = () => {
                       "None, it is a valid metric"
                     ]}
                     correctAnswer={2}
-                    explanation={`Take $x=0, z=2, y=1$. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since $4$ is not less than or equal to $2$, the triangle inequality fails.`}
+                    explanation={String.raw`Take $x=0, z=2, y=1$. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since $4$ is not less than or equal to $2$, the triangle inequality fails.`}
                   />
                 </div>
               )}
