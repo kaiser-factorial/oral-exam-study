@@ -52,12 +52,13 @@ const AppContent = () => {
     ],
     'Linear Algebra I': [
       { id: 1, title: 'Vector Spaces & Subspaces' },
-      { id: 2, title: 'Bases & Dimensions' },
-      { id: 3, title: 'Linear Transformations' },
-      { id: 4, title: 'Matrix Representations' },
-      { id: 5, title: 'Invertibility & Change of Basis' },
-      { id: 6, title: 'Eigenvalues & Determinants' },
-      { id: 7, title: 'Cayley-Hamilton Theorem' },
+      { id: 2, title: 'Bases, Dimension & Duality' },
+      { id: 3, title: 'Quotient Spaces & Direct Sums' },
+      { id: 4, title: 'Linear Transformations & Rank' },
+      { id: 5, title: 'Matrix Representations' },
+      { id: 6, title: 'Operators & Invariance' },
+      { id: 7, title: 'Determinants & Multilinearity' },
+      { id: 8, title: 'Spectral Theory' },
     ],
     'Linear Algebra II': [
       { id: 1, title: 'Abstract Linear Algebra' },
@@ -310,6 +311,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Hölder & Minkowski Inequalities" inline={true} /></li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 1 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Vector Space Axioms</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Subspace Criteria</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -331,6 +338,8 @@ const AppContent = () => {
                         {activeSubject === 'Analysis II' && activeChapter === 6 && "Contrast the Lebesgue integral with Riemann—focus on the partitioning of the codomain."}
                         {activeSubject === 'Analysis II' && activeChapter === 7 && "Justify the necessity of a 'dominating function' for DCT to hold."}
                         {activeSubject === 'Analysis II' && activeChapter === 8 && "Explain why we identify functions that are equal almost everywhere."}
+
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 1 && "Master the Subspace Test—always check the zero vector first."}
                       </li>
                     </ul>
                   </div>
@@ -393,6 +402,53 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation={"Take $x=0, z=2, y=1$. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since $4$ is not less than or equal to $2$, the triangle inequality fails."}
+                  />
+                </div>
+              )}
+
+              {/* Linear Algebra I Content */}
+              {activeSubject === 'Linear Algebra I' && activeChapter === 1 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Vector Spaces & Subspaces" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Vector Space over a Field $F$" inline={true} /></p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A **vector space** $V$ over a field $F$ is a set with two operations (Addition and Scalar Multiplication) satisfying 8 axioms, including associativity, commutativity, and distributivity."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Criterion</h4>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="The Subspace Test" inline={true} /></p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A subset $W \\subset V$ is a **subspace** if it satisfies three conditions:\n\n1. **Zero Vector**: $0_V \\in W$.\n2. **Closure under Addition**: $u, v \\in W \\implies u+v \\in W$.\n3. **Closure under Scalar Multiplication**: $c \\in F, v \\in W \\implies cv \\in W$."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="The Polynomial Space"
+                        context={"Let $P_n(F)$ be the set of polynomials of degree at most $n$ with coefficients in $F$."}
+                        question={"Is the set of polynomials of *exactly* degree $n$ a subspace?"}
+                        solution={"No. The zero polynomial (the zero vector) has degree $-\\infty$ (or is undefined), not degree $n$. Furthermore, adding two polynomials of degree $n$ could result in a lower degree (e.g., $(x^2 + 1) + (-x^2 + x) = x + 1$), violating closure under addition."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which of the following is NOT necessarily a subspace of V?"
+                    options={[
+                      "The intersection of two subspaces.",
+                      "The union of two subspaces.",
+                      "The span of a set of vectors.",
+                      "The zero vector alone {0}."
+                    ]}
+                    correctAnswer={1}
+                    explanation="The union of two subspaces is only a subspace if one is contained within the other. For example, the union of the x-axis and y-axis in R^2 is not a subspace because (1,0) + (0,1) = (1,1), which is not on either axis."
                   />
                 </div>
               )}
