@@ -280,6 +280,30 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Regularity of Lebesgue Measure</li>
                         </>
                       )}
+                      {activeSubject === 'Analysis II' && activeChapter === 4 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> General Measure Spaces</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Measurability of Functions</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis II' && activeChapter === 5 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Simple Functions</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Egorov's & Lusin's Theorems</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis II' && activeChapter === 6 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> The Lebesgue Integral</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Integrability in $L^1$</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis II' && activeChapter === 7 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> MCT, Fatou, and DCT</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Interchanging Limits & Integrals</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -296,6 +320,10 @@ const AppContent = () => {
                         {activeSubject === 'Analysis II' && activeChapter === 1 && "Explain why we cannot define a measure on the power set of R."}
                         {activeSubject === 'Analysis II' && activeChapter === 2 && "Understand why outer measure is not countably additive in general."}
                         {activeSubject === 'Analysis II' && activeChapter === 3 && "Master the Carathéodory condition as the bridge to additivity."}
+                        {activeSubject === 'Analysis II' && activeChapter === 4 && "Know the definition of measurable functions and their preservation under limits."}
+                        {activeSubject === 'Analysis II' && activeChapter === 5 && "Explain how any non-negative measurable function is a limit of simple functions."}
+                        {activeSubject === 'Analysis II' && activeChapter === 6 && "Contrast the Lebesgue integral with Riemann—focus on the partitioning of the codomain."}
+                        {activeSubject === 'Analysis II' && activeChapter === 7 && "Justify the necessity of a 'dominating function' for DCT to hold."}
                       </li>
                     </ul>
                   </div>
@@ -768,30 +796,104 @@ const AppContent = () => {
                 </div>
               )}
 
-              {activeSubject === 'Analysis II' && activeChapter === 4 && (
+              {activeSubject === 'Analysis II' && activeChapter === 5 && (
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      General Measures & Measurable Functions
+                      Measurable Functions
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Measure Space <LatexRenderer text={"$(X, \\mathscr{F}, \\mu)$"} inline={true} /></p>
+                        <p className="text-white font-medium mb-2">Simple Functions</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"A **measure** $\\mu$ on a $\\sigma$-algebra $\\mathscr{F}$ is a function $\\mu: \\mathscr{F} \\to [0, \\infty]$ that satisfies $\\mu(\\emptyset)=0$ and is countably additive. A triple $(X, \\mathscr{F}, \\mu)$ is called a **measure space**."} />
+                          <LatexRenderer text={"A **simple function** $s$ is a finite linear combination of indicator functions of measurable sets:\n\n$$s(x) = \\sum_{i=1}^n a_i \\chi_{E_i}(x)$$\n\nwhere $E_i \\in \\mathscr{F}$. Simple functions are the 'step functions' of measure theory."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Approximation Theorem</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $f$ be a non-negative measurable function. Then there exists a sequence of non-negative simple functions $s_n$ such that $s_n \\nearrow f$ pointwise. If $f$ is bounded, the convergence is uniform."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Composition of Functions"
+                        context={"Let $f: X \\to Y$ and $g: Y \\to \\mathbb{R}$."}
+                        question={"If $f$ is measurable and $g$ is continuous, is $g \\circ f$ measurable?"}
+                        solution={"Yes. For any open set $U \\subset \\mathbb{R}$, $(g \\circ f)^{-1}(U) = f^{-1}(g^{-1}(U))$. Since $g$ is continuous, $g^{-1}(U)$ is open. Since $f$ is measurable, the inverse image of an open set is measurable. Thus $g \\circ f$ is measurable."}
+                      />
+                    </div>
+                  </section>
+                </div>
+              )}
+
+              {activeSubject === 'Analysis II' && activeChapter === 6 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      The Lebesgue Integral
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Integral of Non-Negative Functions</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For a non-negative measurable function $f$, the **Lebesgue integral** is defined as:\n\n$$\\int_X f \\, d\\mu = \\sup \\left\\{ \\int_X s \\, d\\mu : 0 \\le s \\le f, \\, s \\text{ is simple} \\right\\}$$"} />
                         </div>
                       </div>
 
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
-                        <p className="text-white font-medium mb-2">Measurable Functions</p>
+                        <p className="text-white font-medium mb-2">$L^1$ Integrability</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"A function $f: X \\to \\mathbb{R}$ is **measurable** if for every $\\alpha \\in \\mathbb{R}$, the set $\{x \\in X : f(x) > \\alpha\}$ is in $\\mathscr{F}$.\n\nThis is the precise condition needed to define the Lebesgue integral of $f$."} />
+                          <LatexRenderer text={"A general measurable function $f$ is **integrable** if $\\int |f| \\, d\\mu < \\infty$. In this case, we define:\n\n$$\\int f \\, d\\mu = \\int f^+ \\, d\\mu - \\int f^- \\, d\\mu$$"} />
                         </div>
                       </div>
                     </div>
                   </section>
+                </div>
+              )}
+
+              {activeSubject === 'Analysis II' && activeChapter === 7 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Convergence Theorems
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Monotone Convergence Theorem (MCT)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $\{f_n\}$ is a sequence of non-negative measurable functions such that $f_n \\nearrow f$ pointwise, then:\n\n$$\\lim_{n \\to \\infty} \\int f_n \\, d\\mu = \\int f \\, d\\mu$$"} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Dominated Convergence Theorem (DCT)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $f_n \\to f$ pointwise and $|f_n| \\le g$ for all $n$, where $g$ is integrable, then:\n\n$$\\lim_{n \\to \\infty} \\int f_n \\, d\\mu = \\int f \\, d\\mu$$"} />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="MCT to Fatou"
+                    theorem={"Fatou's Lemma: $\\int \\liminf f_n \\le \\liminf \\int f_n$"}
+                    steps={[
+                      "Let $g_k(x) = \\inf_{n \\ge k} f_n(x)$. Then $\{g_k\}$ is a non-decreasing sequence of non-negative measurable functions.",
+                      "By definition, $\\lim_{k \\to \\infty} g_k(x) = \\liminf_{n \\to \\infty} f_n(x)$.",
+                      "Apply the Monotone Convergence Theorem (MCT) to $g_k$: $\\int \\lim g_k = \\lim \\int g_k$.",
+                      "Since $g_k \\le f_n$ for all $n \\ge k$, we have $\\int g_k \\le \\int f_n$ for all $n \\ge k$.",
+                      "Thus $\\int g_k \\le \\inf_{n \\ge k} \\int f_n$.",
+                      "Taking the limit as $k \\to \\infty$: $\\int \\liminf f_n = \\lim \\int g_k \\le \\lim \\inf_{n \\ge k} \\int f_n = \\liminf \\int f_n$. Q.E.D."
+                    ]}
+                  />
                 </div>
               )}
             </div>
