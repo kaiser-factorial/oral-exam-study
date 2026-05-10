@@ -323,6 +323,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Dual Spaces $V^*$</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 3 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Quotient Spaces $V/W$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Direct Sums $V = U \oplus W$</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -347,6 +353,7 @@ const AppContent = () => {
 
                         {activeSubject === 'Linear Algebra I' && activeChapter === 1 && "Master the Subspace Test—always check the zero vector first."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 2 && "Understand that the dual space V* consists of functionals, not vectors."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 3 && "Explain the geometric intuition of a quotient space as 'collapsing' W to zero."}
                       </li>
                     </ul>
                   </div>
@@ -502,6 +509,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={3}
                     explanation="Every vector space (even infinite-dimensional ones) has a basis. This is proven using Zorn's Lemma (Axiom of Choice). A basis for an infinite-dimensional space is called a Hamel basis."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 3 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Quotient Spaces & Direct Sums" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Quotient Space $V/W$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $W$ be a subspace of $V$. The **quotient space** $V/W$ is the set of all cosets $v + W = \{v + w : w \\in W\}$. Addition and scalar multiplication are defined on cosets by:\n\n1. $(v_1 + W) + (v_2 + W) = (v_1 + v_2) + W$\n2. $c(v + W) = (cv) + W$"} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">The Dimension Formula</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $V$ is finite-dimensional, then:\n\n$$\\dim(V/W) = \\dim(V) - \\dim(W)$$\n\nIntuitively, $V/W$ is the space $V$ where everything in $W$ has been 'collapsed' to the zero vector."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Direct Sum Decompositions"
+                        context={"Let $V = \\mathbb{R}^2$. Let $U$ be the x-axis and $W$ be the y-axis."}
+                        question={"Is $V = U \\oplus W$?"}
+                        solution={"Yes. Every vector $(x, y) \\in \\mathbb{R}^2$ can be uniquely written as $(x, 0) + (0, y)$, where $(x, 0) \\in U$ and $(0, y) \\in W$. Furthermore, $U \\cap W = \\{(0, 0)\\}$, which is the necessary and sufficient condition for a sum to be a direct sum."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which condition is equivalent to V being the direct sum of U and W?"
+                    options={[
+                      "U and W span V.",
+                      "The intersection of U and W is empty.",
+                      "Every vector in V has a unique representation u + w.",
+                      "dim(U) + dim(W) = dim(V)."
+                    ]}
+                    correctAnswer={2}
+                    explanation="While spanning and dimension counts are related, the defining characteristic of a direct sum is the uniqueness of the decomposition, which is equivalent to saying the intersection is ONLY the zero vector {0}."
                   />
                 </div>
               )}
