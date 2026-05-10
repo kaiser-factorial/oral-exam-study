@@ -335,6 +335,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Rank-Nullity Theorem</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 5 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Matrix Representation $[T]_\beta^\gamma$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Covariant vs Contravariant</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -361,6 +367,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 2 && "Understand that the dual space V* consists of functionals, not vectors."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 3 && "Explain the geometric intuition of a quotient space as 'collapsing' W to zero."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 4 && "Master the Rank-Nullity Theorem—the bridge between the 'lost' and 'gained' dimensions."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 5 && "Explain why vectors are 'contravariant' (transform inversely to the basis) and functionals are 'covariant'."}
                       </li>
                     </ul>
                   </div>
@@ -562,6 +569,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="While spanning and dimension counts are related, the defining characteristic of a direct sum is the uniqueness of the decomposition, which is equivalent to saying the intersection is ONLY the zero vector {0}."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 5 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Matrix Representations" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Representing a Linear Map</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $T: V \\to W$ be linear, with bases $\\beta = \\{v_1, \\dots, v_n\\}$ and $\\gamma = \\{w_1, \\dots, w_m\\}$. The **matrix representation** of $T$ is the $m \\times n$ matrix $A = [T]_\\beta^\\gamma$ whose $j$-th column is the coordinate vector $[T(v_j)]_\\gamma$:\n\n$$T(v_j) = \\sum_{i=1}^m A_{ij} w_i$$"} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
+                        <p className="text-white font-medium mb-2">Covariant vs. Contravariant</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Contravariant Vectors**: Components of vectors $v \\in V$ transform by the inverse of the basis change matrix. They 'counter-vary' the basis.\n2. **Covariant Vectors**: Components of dual vectors (functionals) $f \\in V^*$ transform by the same matrix as the basis change. They 'co-vary' with the basis."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Differentiation Matrix"
+                        context={"Let $D: P_2(\\mathbb{R}) \\to P_1(\\mathbb{R})$ with standard bases $\\beta = \\{1, x, x^2\\}$ and $\\gamma = \\{1, x\\}$."}
+                        question={"Find $[D]_\\beta^\\gamma$."}
+                        solution={"1. $D(1) = 0 = 0(1) + 0(x)$. Col 1: $[0, 0]^T$.\n2. $D(x) = 1 = 1(1) + 0(x)$. Col 2: $[1, 0]^T$.\n3. $D(x^2) = 2x = 0(1) + 2(x)$. Col 3: $[0, 2]^T$.\n\nThus, $[D]_\\beta^\\gamma = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="If P is the change of basis matrix from basis B to B', how do vector components [v]_B transform?"
+                    options={[
+                      "[v]_{B'} = P [v]_B",
+                      "[v]_{B'} = P^{-1} [v]_B",
+                      "[v]_{B'} = P^T [v]_B",
+                      "[v]_{B'} = [v]_B"
+                    ]}
+                    correctAnswer={1}
+                    explanation="Vector components are contravariant. If the basis vectors multiply by P, the components must multiply by P^-1 to keep the vector v = sum c_i v_i invariant."
                   />
                 </div>
               )}
