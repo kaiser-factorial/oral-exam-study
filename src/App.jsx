@@ -61,14 +61,14 @@ const AppContent = () => {
       { id: 8, title: 'Spectral Theory' },
     ],
     'Linear Algebra II': [
-      { id: 1, title: 'Abstract Linear Algebra' },
-      { id: 2, title: 'Volume & Determinants' },
-      { id: 3, title: 'Eigenvalues & Diagonalization' },
-      { id: 4, title: 'Inner Product Spaces' },
-      { id: 5, title: 'Unitary & Adjoint Maps' },
-      { id: 6, title: 'Schur & SVD' },
-      { id: 7, title: 'Tensors & Dual Spaces' },
-      { id: 8, title: 'Hermitian Forms' },
+      { id: 1, title: 'Inner Product Spaces' },
+      { id: 2, title: 'Orthogonality & Gram-Schmidt' },
+      { id: 3, title: 'The Adjoint & Normal Operators' },
+      { id: 4, title: 'The Spectral Theorem' },
+      { id: 5, title: 'Jordan Canonical Form' },
+      { id: 6, title: 'Singular Value Decomposition' },
+      { id: 7, title: 'Bilinear & Quadratic Forms' },
+      { id: 8, title: 'Multilinear Algebra & Tensors' },
     ]
   }
 
@@ -359,6 +359,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Cayley-Hamilton Theorem</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 1 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Inner Product Axioms</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Cauchy-Schwarz Inequality</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -389,6 +395,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 6 && "Master the projection theorem: T is a projection iff V is the direct sum of its image and kernel."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 7 && "Explain the geometric interpretation of the determinant as the signed volume scaling factor."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 8 && "Master the Diagonalization Test: T is diagonalizable iff its minimal polynomial splits into distinct linear factors."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 1 && "Understand that the inner product is the 'compass' that brings geometry to algebra."}
                       </li>
                     </ul>
                   </div>
@@ -636,6 +643,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The determinant is NOT additive. For example, let A = I and B = -I. Then det(A) = 1, det(B) = (-1)^n, but det(A+B) = det(0) = 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 1 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Inner Product Spaces" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Inner Product over $F$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"An **inner product** on $V$ (where $F = \\mathbb{R}$ or $\\mathbb{C}$) is a function $\\langle \\cdot, \\cdot \\rangle: V \\times V \\to F$ satisfying:\n\n1. **Conjugate Symmetry**: $\\langle u, v \\rangle = \\overline{\\langle v, u \\rangle}$.\n2. **Linearity (1st slot)**: $\\langle au + v, w \\rangle = a\\langle u, w \\rangle + \\langle v, w \\rangle$.\n3. **Positive Definiteness**: $\\langle v, v \\rangle \\ge 0$, and $\\langle v, v \\rangle = 0 \\iff v = 0$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Inequality</h4>
+                        <p className="text-white font-medium mb-2">Cauchy-Schwarz Inequality</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For any $u, v \\in V$:\n\n$$|\\langle u, v \\rangle|^2 \\le \\langle u, u \\rangle \\langle v, v \\rangle$$\n\nEquality holds if and only if $u$ and $v$ are linearly dependent. This inequality allows us to define the **angle** $\\theta$ between vectors via $\\cos \\theta = \\frac{\\langle u, v \\rangle}{\\|u\\| \\|v\\|}$ in real spaces."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="The L2 Inner Product"
+                        context={"Let $V = C([0, 1])$ be the space of continuous real-valued functions."}
+                        question={"Verify if $\\langle f, g \\rangle = \\int_0^1 f(x)g(x) dx$ is an inner product."}
+                        solution={"Yes. Linearity follows from properties of the integral. Symmetry is obvious as $fg = gf$. Positive definiteness holds because $\\int f^2 \\ge 0$, and for continuous functions, $\\int f^2 = 0$ implies $f(x) = 0$ everywhere."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which of the following is NOT a consequence of the inner product axioms?"
+                    options={[
+                      "The Triangle Inequality: ||u+v|| <= ||u|| + ||v||",
+                      "The Pythagorean Theorem for orthogonal vectors.",
+                      "The Parallelogram Law: ||u+v||^2 + ||u-v||^2 = 2(||u||^2 + ||v||^2)",
+                      "The determinant is always non-zero."
+                    ]}
+                    correctAnswer={3}
+                    explanation="While inner products define norms and geometry (Triangle Inequality, Pythagorean, Parallelogram Law), they do not place restrictions on the determinant of arbitrary operators. However, the determinant of the *Gram matrix* is related to the inner product."
                   />
                 </div>
               )}
