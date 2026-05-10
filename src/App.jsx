@@ -304,6 +304,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Interchanging Limits & Integrals</li>
                         </>
                       )}
+                      {activeSubject === 'Analysis II' && activeChapter === 8 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> $L^p$ Norms & Convexity</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Hölder & Minkowski Inequalities</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -324,6 +330,7 @@ const AppContent = () => {
                         {activeSubject === 'Analysis II' && activeChapter === 5 && "Explain how any non-negative measurable function is a limit of simple functions."}
                         {activeSubject === 'Analysis II' && activeChapter === 6 && "Contrast the Lebesgue integral with Riemann—focus on the partitioning of the codomain."}
                         {activeSubject === 'Analysis II' && activeChapter === 7 && "Justify the necessity of a 'dominating function' for DCT to hold."}
+                        {activeSubject === 'Analysis II' && activeChapter === 8 && "Explain why we identify functions that are equal almost everywhere."}
                       </li>
                     </ul>
                   </div>
@@ -920,6 +927,52 @@ const AppContent = () => {
                       "Thus $\\int g_k \\le \\inf_{n \\ge k} \\int f_n$.",
                       "Taking the limit as $k \\to \\infty$: $\\int \\liminf f_n = \\lim \\int g_k \\le \\lim \\inf_{n \\ge k} \\int f_n = \\liminf \\int f_n$. Q.E.D."
                     ]}
+                  />
+                </div>
+              )}
+              {activeSubject === 'Analysis II' && activeChapter === 8 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      $L^p$ Spaces
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">The $L^p$ Norm</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For $1 \\le p < \\infty$, the space $L^p(X, \\mu)$ consists of measurable functions $f$ such that:\n\n$$\\|f\\|_p = \\left( \\int_X |f|^p \\, d\\mu \\right)^{1/p} < \\infty$$\n\nTo make this a true norm, we identify functions that are equal **almost everywhere**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
+                        <p className="text-white font-medium mb-2">Fundamental Inequalities</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Hölder's Inequality**: $\\|fg\\|_1 \\le \\|f\\|_p \\|g\\|_q$ where $1/p + 1/q = 1$.\n2. **Minkowski's Inequality**: $\\|f+g\\|_p \\le \\|f\\|_p + \\|g\\|_p$ (The Triangle Inequality)."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Deep Insight</h4>
+                        <p className="text-white font-medium mb-2">Completeness (Riesz-Fischer)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For $1 \\le p \\le \\infty$, the space $L^p(X, \\mu)$ is a **Banach space** (a complete normed vector space). This is why $L^p$ spaces are the natural setting for functional analysis."} />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Why do we say 'Lp is the space of equivalence classes' of functions?"
+                    options={[
+                      "Because functions can have different values at points of measure zero.",
+                      "To ensure that ||f|| = 0 implies f = 0.",
+                      "To allow the integral to be defined.",
+                      "Because the domain is a sigma-algebra."
+                    ]}
+                    correctAnswer={1}
+                    explanation="If we don't identify functions equal a.e., then ||f|| = 0 only implies f = 0 almost everywhere, which would mean ||.|| is only a seminorm. Equivalence classes turn it into a true norm."
                   />
                 </div>
               )}
