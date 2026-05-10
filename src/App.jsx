@@ -1434,7 +1434,7 @@ const AppContent = () => {
                 </div>
               )}
 
-              {activeChapter > 3 && activeChapter < 5 && activeSubject === 'Analysis I' && (
+              {activeSubject === 'Analysis I' && activeChapter === 4 && (
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
@@ -1493,7 +1493,7 @@ const AppContent = () => {
                 </div>
               )}
 
-              {activeChapter > 4 && activeChapter < 6 && activeSubject === 'Analysis I' && (
+              {activeSubject === 'Analysis I' && activeChapter === 5 && (
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
@@ -1504,7 +1504,7 @@ const AppContent = () => {
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
                         <p className="text-white font-medium mb-2">Riemann-Stieltjes Integral</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"Let $\\alpha$ be a monotonically increasing function on $[a, b]$. We say $f$ is Riemann-Stieltjes integrable with respect to $\\alpha$, denoted $f \\in \\mathscr{R}(\\alpha)$, if the upper and lower integrals coincide:\n\n$$\\int_a^b f \\, d\\alpha = \\sup \\underline{S}(P, f, \\alpha) = \\inf \\overline{S}(P, f, \\alpha)$$\n\nwhere the sup and inf are taken over all partitions $P$ of $[a, b]$."} />
+                          <LatexRenderer text={"Let $\\alpha$ be a monotonically increasing function on $[a, b]$. We say $f$ is Riemann-Stieltjes integrable with respect to $\\alpha$, denoted $f \\in \\\\mathscr{R}(\\alpha)$, if the upper and lower integrals coincide:\n\n$$\\int_a^b f \\, d\\alpha = \\sup \\underline{S}(P, f, \\alpha) = \\inf \\overline{S}(P, f, \\alpha)$$\n\nwhere the sup and inf are taken over all partitions $P$ of $[a, b]$."} />
                         </div>
                       </div>
 
@@ -1512,7 +1512,7 @@ const AppContent = () => {
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem</h4>
                         <p className="text-white font-medium mb-2">Fundamental Theorem of Calculus (FTC)</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"**Part I:** If $f \\in \\mathscr{R}$ on $[a, b]$, and $F(x) = \\int_a^x f(t) \\, dt$, then $F$ is continuous on $[a, b]$ and $F'(x) = f(x)$ at any point $x$ where $f$ is continuous.\n\n**Part II:** If $f \\in \\mathscr{R}$ and $F' = f$, then $\\int_a^b f(x) \\, dx = F(b) - F(a)$."} />
+                          <LatexRenderer text={"**Part I:** If $f \\in \\\\mathscr{R}$ on $[a, b]$, and $F(x) = \\int_a^x f(t) \\, dt$, then $F$ is continuous on $[a, b]$ and $F'(x) = f(x)$ at any point $x$ where $f$ is continuous.\n\n**Part II:** If $f \\in \\\\mathscr{R}$ and $F' = f$, then $\\int_a^b f(x) \\, dx = F(b) - F(a)$."} />
                         </div>
                       </div>
 
