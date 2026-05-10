@@ -68,7 +68,9 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
 
       <div className="mb-6 p-4 bg-slate-900/50 rounded-lg border border-white/5 italic text-slate-300 text-sm">
         <strong className="text-emerald-400 not-italic block mb-1 uppercase text-[10px] tracking-widest font-black">Theorem:</strong>
-        {theorem}
+        {typeof theorem === 'string' && (theorem.includes('$') || theorem.includes('\\')) ? (
+          <BlockMath math={theorem.replace(/\$/g, '')} />
+        ) : theorem}
       </div>
 
       <div className="space-y-4">
@@ -87,7 +89,11 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
           >
             <div className="flex gap-4">
               <span className="font-mono text-[10px] opacity-50 mt-1">STEP 0{idx + 1}</span>
-              <div className="text-sm leading-relaxed">{step}</div>
+              <div className="text-sm leading-relaxed">
+                {typeof step === 'string' && (step.includes('$') || step.includes('\\')) ? (
+                  <InlineMath math={step.replace(/\$/g, '')} />
+                ) : step}
+              </div>
             </div>
           </motion.div>
         ))}
@@ -143,7 +149,11 @@ export const Example = ({ title, context, question, solution }) => {
             className="mt-4 p-4 bg-white/5 rounded-lg border border-white/5 overflow-hidden"
           >
             <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Solution</p>
-            <div className="text-sm text-slate-400 leading-relaxed">{solution}</div>
+            <div className="text-sm text-slate-400 leading-relaxed">
+              {typeof solution === 'string' && (solution.includes('$') || solution.includes('\\')) ? (
+                <InlineMath math={solution.replace(/\$/g, '')} />
+              ) : solution}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
