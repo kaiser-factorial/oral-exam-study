@@ -377,6 +377,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Normal & Self-Adjoint</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 4 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> The Spectral Theorem</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Normal vs Self-Adjoint</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -410,6 +416,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra II' && activeChapter === 1 && "Understand that the inner product is the 'compass' that brings geometry to algebra."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 2 && "Explain the Best Approximation Theorem: the closest vector in W to v is its orthogonal projection."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 3 && "Prove why self-adjoint operators must have real eigenvalues: use the definition of the adjoint."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 4 && "Master the Spectral Theorem: why is every real symmetric matrix diagonalizable by an ONB? (Key for PCA)."}
                       </li>
                     </ul>
                   </div>
@@ -711,6 +718,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The Pythagorean Theorem in Inner Product Spaces states: if u is orthogonal to v, then ||u+v||^2 = ||u||^2 + ||v||^2. This is a direct consequence of the inner product axioms."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 4 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="The Spectral Theorem" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Fundamental Results</h4>
+                        <p className="text-white font-medium mb-2">Complex vs. Real Versions</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Complex Spectral Theorem**: $T \\in \\mathcal{L}(V)$ is diagonalizable by an ONB iff $T$ is **Normal** ($TT^* = T^*T$).\n2. **Real Spectral Theorem**: $T \\in \\mathcal{L}(V)$ is diagonalizable by an ONB iff $T$ is **Self-Adjoint** ($T = T^*$).\n\n**Significance**: In Data Science, covariance matrices are real symmetric (self-adjoint), meaning they always possess an ONB of eigenvectors. This is the foundation of PCA."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Theorem Detail</h4>
+                        <p className="text-white font-medium mb-2">Spectral Decomposition</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $T$ is normal (over $\\mathbb{C}$) or self-adjoint (over $\\mathbb{R}$), then $T$ can be written as:\n\n$$T = \\sum_{i=1}^k \\lambda_i P_i$$\n\nwhere $\\lambda_i$ are distinct eigenvalues and $P_i$ is the orthogonal projection onto the eigenspace $E_{\\lambda_i}$. This 'Spectral Decomposition' allows us to view $T$ as a set of separate scaling operations along orthogonal axes."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Data Science Context</h4>
+                        <p className="text-white font-medium mb-2">Principal Component Analysis (PCA)</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"Given a data matrix $X$, the covariance matrix $C = X^T X$ is symmetric. By the Spectral Theorem:\n1. $C$ has real eigenvalues representing the **variance** explained by each direction.\n2. The orthonormal eigenvectors are the **Principal Components**.\n3. Dimensionality reduction is achieved by projecting data onto the eigenvectors with the largest eigenvalues."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Decomposing a Symmetric Matrix"
+                        context={"Let $A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$."}
+                        question={"Find the spectral decomposition $A = \\lambda_1 P_1 + \\lambda_2 P_2$."}
+                        solution={"1. Eigenvalues: $(2-\\lambda)^2 - 1 = 0 \\implies \\lambda = 3, 1$.\n2. For $\\lambda_1 = 3$, $v_1 = (1, 1)^T \\implies e_1 = \\frac{1}{\\sqrt{2}}(1, 1)^T$. $P_1 = e_1 e_1^T = \\frac{1}{2} \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}$.\n3. For $\\lambda_2 = 1$, $v_2 = (1, -1)^T \\implies e_2 = \\frac{1}{\\sqrt{2}}(1, -1)^T$. $P_2 = e_2 e_2^T = \\frac{1}{2} \\begin{pmatrix} 1 & -1 \\\\ -1 & 1 \\end{pmatrix}$.\n\nCheck: $3P_1 + 1P_2 = \\begin{pmatrix} 1.5+0.5 & 1.5-0.5 \\\\ 1.5-0.5 & 1.5+0.5 \\end{pmatrix} = A$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Why are eigenvectors of a self-adjoint operator corresponding to distinct eigenvalues always orthogonal?"
+                    options={[
+                      "By the definition of the inner product.",
+                      "Because the eigenvalues are real.",
+                      "Because <Tv, w> = <v, Tw> leads to (λ - μ)<v, w> = 0.",
+                      "Because they span the whole space."
+                    ]}
+                    correctAnswer={2}
+                    explanation="This is the 'Heart of the Spectral Theorem.' Since <Tv, w> = <v, Tw>, we have λ<v, w> = μ<v, w>, which implies (λ - μ)<v, w> = 0. If λ ≠ μ, then <v, w> must be 0."
                   />
                 </div>
               )}
