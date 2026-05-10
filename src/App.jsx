@@ -25,10 +25,10 @@ const AppContent = () => {
   const activeChapter = chapterId ? parseInt(chapterId) : 1
 
   const subjects = [
-    { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', desc: 'Metric spaces, sequences, and fundamental integration theory.' },
-    { id: 'Analysis II', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.' },
-    { id: 'Linear Algebra I', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', desc: 'Vector space duality, quotients, and spectral theory.' },
-    { id: 'Linear Algebra II', color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.' },
+    { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', desc: 'Metric spaces, sequences, and fundamental integration theory.', short: 'Analysis I' },
+    { id: 'Analysis II', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.', short: 'Analysis II' },
+    { id: 'Linear Algebra I', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', desc: 'Vector space duality, quotients, and spectral theory.', short: 'Lin Alg I' },
+    { id: 'Linear Algebra II', color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.', short: 'Lin Alg II' },
   ]
 
   const chapters = {
@@ -210,7 +210,7 @@ const AppContent = () => {
                       activeSubject === s.id ? `${s.bg} ${s.color}` : 'text-slate-500 hover:text-slate-300'
                     }`}
                   >
-                    {s.id.split(' ')[0]}
+                    {s.short}
                   </button>
                 ))}
               </div>
