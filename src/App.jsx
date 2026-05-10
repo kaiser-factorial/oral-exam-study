@@ -317,6 +317,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Subspace Criteria</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 2 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Bases & Dimension</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Dual Spaces $V^*$</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -340,6 +346,7 @@ const AppContent = () => {
                         {activeSubject === 'Analysis II' && activeChapter === 8 && "Explain why we identify functions that are equal almost everywhere."}
 
                         {activeSubject === 'Linear Algebra I' && activeChapter === 1 && "Master the Subspace Test—always check the zero vector first."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 2 && "Understand that the dual space V* consists of functionals, not vectors."}
                       </li>
                     </ul>
                   </div>
@@ -449,6 +456,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The union of two subspaces is only a subspace if one is contained within the other. For example, the union of the x-axis and y-axis in R^2 is not a subspace because (1,0) + (0,1) = (1,1), which is not on either axis."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 2 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Bases, Dimension & Duality" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Bases & Coordinates</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A set of vectors $\{v_1, \\dots, v_n\}$ is a **basis** for $V$ if:\n\n1. They are **linearly independent**.\n2. They **span** $V$.\n\nThe number $n$ is called the **dimension** of $V$. Any vector $v \\in V$ can be uniquely written as $v = \\sum_{i=1}^n c_i v_i$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
+                        <p className="text-white font-medium mb-2">Dual Space $V^*$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"The **dual space** $V^*$ is the set of all linear functionals $f: V \\to F$. If $\{v_1, \\dots, v_n\}$ is a basis for $V$, the **dual basis** $\{f_1, \\dots, f_n\}$ for $V^*$ is defined by:\n\n$$f_i(v_j) = \\delta_{ij} = \\begin{cases} 1 & i=j \\\\ 0 & i\\neq j \\end{cases}$$"} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Dimension of Dual Spaces"
+                        context={"Let $V$ be finite-dimensional."}
+                        question={"What is the relationship between $\\dim(V)$ and $\\dim(V^*)$?"}
+                        solution={"For finite-dimensional spaces, $\\dim(V) = \\dim(V^*)$. This is because for every basis of $V$, we can construct a corresponding dual basis for $V^*$ of the same size. Note: For infinite-dimensional spaces, $V^*$ is strictly larger than $V$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which statement about linear independence is FALSE?"
+                    options={[
+                      "Any set containing the zero vector is dependent.",
+                      "A basis is a maximal linearly independent set.",
+                      "Two vectors are dependent if one is a multiple of the other.",
+                      "Every infinite-dimensional space lacks a basis."
+                    ]}
+                    correctAnswer={3}
+                    explanation="Every vector space (even infinite-dimensional ones) has a basis. This is proven using Zorn's Lemma (Axiom of Choice). A basis for an infinite-dimensional space is called a Hamel basis."
                   />
                 </div>
               )}
