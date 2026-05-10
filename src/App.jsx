@@ -464,7 +464,7 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">The Metric Space $(X, d)$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="The Metric Space $(X, d)$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"A **metric space** is a set $X$ with a function $d: X \\times X \\to [0, \\infty)$ such that for all $x, y, z \\in X$:\n\n1. **Positivity**: $d(x, y) \\ge 0$, and $d(x, y) = 0 \\iff x = y$.\n2. **Symmetry**: $d(x, y) = d(y, x)$.\n3. **Triangle Inequality**: $d(x, z) \\le d(x, y) + d(y, z)$."} />
                         </div>
@@ -472,7 +472,7 @@ const AppContent = () => {
 
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Axiom</h4>
-                        <p className="text-white font-medium mb-2"><LatexRenderer text="Completeness of $\\mathbb{R}$" inline={true} /></p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Completeness of $\mathbb{R}$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"The real numbers $\\mathbb{R}$ are characterized by the **Least Upper Bound Property**: Every non-empty set of real numbers that is bounded above has a least upper bound (supremum) in $\\mathbb{R}$.\n\n*Note: This distinguishes $\\mathbb{R}$ from $\\mathbb{Q}$, as the set $\{x \\in \\mathbb{Q} : x^2 < 2\}$ has no supremum in $\\mathbb{Q}$.*"} />
                         </div>
@@ -1606,7 +1606,7 @@ const AppContent = () => {
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
                         <p className="text-white font-medium mb-2"><LatexRenderer text="Borel $\sigma$-Algebras" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"The **Borel $\\\\sigma$-algebra** $\\\\mathscr{B}$ on a topological space $X$ is the smallest $\\\\sigma$-algebra containing all open sets of $X$. In $\\\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
+                          <LatexRenderer text={"The **Borel $\\sigma$-algebra** $\\mathscr{B}$ on a topological space $X$ is the smallest $\\sigma$-algebra containing all open sets of $X$. In $\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
                         </div>
                       </div>
 
