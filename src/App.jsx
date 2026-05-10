@@ -217,7 +217,10 @@ const AppContent = () => {
                   <Info size={14} /> Chapter Overview
                 </div>
                 <h3 className="text-3xl font-black text-white mb-6">
-                  <LatexRenderer text={chapters[activeSubject]?.find(c => c.id === activeChapter)?.title} inline={true} />
+                  {(() => {
+                    const chap = chapters[activeSubject]?.find(c => c.id === activeChapter);
+                    return <LatexRenderer text={chap?.title || "Loading..."} inline={true} />;
+                  })()}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div className="space-y-4">
@@ -774,7 +777,7 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Measure Space $(X, \\mathscr{F}, \\mu)$</p>
+                        <p className="text-white font-medium mb-2">Measure Space <LatexRenderer text={"$(X, \\mathscr{F}, \\mu)$"} inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"A **measure** $\\mu$ on a $\\sigma$-algebra $\\mathscr{F}$ is a function $\\mu: \\mathscr{F} \\to [0, \\infty]$ that satisfies $\\mu(\\emptyset)=0$ and is countably additive. A triple $(X, \\mathscr{F}, \\mu)$ is called a **measure space**."} />
                         </div>

@@ -10,14 +10,14 @@ import rehypeKatex from 'rehype-katex'
 
 // Robust renderer using react-markdown + math plugins
 export const LatexRenderer = ({ text, inline = false }) => {
-  if (typeof text !== 'string') return text;
+  if (!text || typeof text !== 'string') return null;
   
   return (
     <ReactMarkdown 
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       components={{
-        p: ({node, ...props}) => inline ? <span {...props} /> : <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
+        p: ({node, ...props}) => inline ? <span className="inline-latex" {...props} /> : <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
         ul: ({node, ...props}) => <ul className="list-disc ml-6 mt-2 mb-4 space-y-1" {...props} />,
         li: ({node, ...props}) => <li className="text-slate-300" {...props} />,
       }}
