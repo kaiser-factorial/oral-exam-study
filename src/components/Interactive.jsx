@@ -87,7 +87,7 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
   return (
     <div className="glass-card border-emerald-500/10 bg-emerald-500/5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold text-white">{title}</h3>
+        <h3 className="text-xl font-bold text-white"><LatexRenderer text={title} inline={true} /></h3>
         <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
           <Lightbulb size={12} /> Step-by-Step Proof
         </span>
@@ -159,7 +159,7 @@ export const Example = ({ title, context, question, solution }) => {
   return (
     <div className="glass-card border-amber-500/10 bg-amber-500/5 mt-4">
       <h4 className="text-amber-400 font-bold mb-4 flex items-center gap-2 text-sm">
-        <Beaker size={16} /> Practice Example: {title}
+        <Beaker size={16} /> Practice Example: <LatexRenderer text={title} inline={true} />
       </h4>
       
       <div className="text-sm text-slate-300 space-y-4 mb-6">

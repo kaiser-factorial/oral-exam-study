@@ -264,50 +264,50 @@ const AppContent = () => {
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 1 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> $\sigma$-Algebras & Borel Sets</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Definition of a Measure Space</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="$\sigma$-Algebras & Borel Sets" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Definition of a Measure Space" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 2 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Lebesgue Outer Measure $m^*$</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Countable Subadditivity</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Lebesgue Outer Measure $m^*$" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Countable Subadditivity" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 3 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Carathéodory's Criterion</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Regularity of Lebesgue Measure</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Carathéodory's Criterion" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Regularity of Lebesgue Measure" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 4 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> General Measure Spaces</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Measurability of Functions</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="General Measure Spaces" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Measurability of Functions" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 5 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Simple Functions</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Egorov's & Lusin's Theorems</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Simple Functions" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Egorov's & Lusin's Theorems" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 6 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> The Lebesgue Integral</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Integrability in $L^1$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="The Lebesgue Integral" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Integrability in $L^1$" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 7 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> MCT, Fatou, and DCT</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Interchanging Limits & Integrals</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="MCT, Fatou, and DCT" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Interchanging Limits & Integrals" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Analysis II' && activeChapter === 8 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> $L^p$ Norms & Convexity</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Hölder & Minkowski Inequalities</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="$L^p$ Norms & Convexity" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> <LatexRenderer text="Hölder & Minkowski Inequalities" inline={true} /></li>
                         </>
                       )}
                     </ul>
@@ -934,12 +934,12 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      $L^p$ Spaces
+                      <LatexRenderer text="$L^p$ Spaces" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">The $L^p$ Norm</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="The $L^p$ Norm" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"For $1 \\le p < \\infty$, the space $L^p(X, \\mu)$ consists of measurable functions $f$ such that:\n\n$$\\|f\\|_p = \\left( \\int_X |f|^p \\, d\\mu \\right)^{1/p} < \\infty$$\n\nTo make this a true norm, we identify functions that are equal **almost everywhere**."} />
                         </div>
