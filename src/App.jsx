@@ -383,6 +383,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Normal vs Self-Adjoint</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 5 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Jordan Canonical Form</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Generalized Eigenspaces</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -417,6 +423,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra II' && activeChapter === 2 && "Explain the Best Approximation Theorem: the closest vector in W to v is its orthogonal projection."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 3 && "Prove why self-adjoint operators must have real eigenvalues: use the definition of the adjoint."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 4 && "Master the Spectral Theorem: why is every real symmetric matrix diagonalizable by an ONB? (Key for PCA)."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 5 && "Explain the structure of the Jordan Canonical Form and why we need generalized eigenvectors."}
                       </li>
                     </ul>
                   </div>
@@ -772,6 +779,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="This is the 'Heart of the Spectral Theorem.' Since <Tv, w> = <v, Tw>, we have λ<v, w> = μ<v, w>, which implies (λ - μ)<v, w> = 0. If λ ≠ μ, then <v, w> must be 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 5 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Jordan Canonical Form" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Concept</h4>
+                        <p className="text-white font-medium mb-2">Generalized Eigenspaces $K_\lambda$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"When $am(\\lambda) > gm(\\lambda)$, the operator $T$ is missing eigenvectors. We expand the search to **generalized eigenvectors**:\n\n$$K_\\lambda = \\{v \\in V : (T - \\lambda I)^k v = 0 \\text{ for some } k \\ge 1\\}$$\n\n**Primary Decomposition Theorem**: If $p(t)$ splits, then $V$ is the direct sum of its generalized eigenspaces: $V = K_{\\lambda_1} \\oplus \\dots \\oplus K_{\\lambda_m}$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Matrix Structure</h4>
+                        <p className="text-white font-medium mb-2">The Jordan Block $J_k(\lambda)$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A **Jordan block** of size $k$ is a $k \\times k$ matrix of the form:\n\n$$J_k(\\lambda) = \\begin{pmatrix} \\lambda & 1 & 0 & \\dots \\\\ 0 & \\lambda & 1 & \\dots \\\\ \\vdots & \\vdots & \\ddots & 1 \\\\ 0 & 0 & \\dots & \\lambda \\end{pmatrix}$$\n\n**Theorem**: Every operator $T$ (on a space where $p(t)$ splits) has a basis in which its matrix is a block-diagonal collection of Jordan blocks. This is the **Jordan Canonical Form**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Oral Focus</h4>
+                        <p className="text-white font-medium mb-2">Why JCF Matters</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"The JCF is the 'simplest' possible representation for *any* linear operator. It decomposes the operator into a diagonalizable part (the $\\lambda$ diagonal) and a nilpotent part (the $1$s on the super-diagonal). This is critical for solving systems of differential equations $\\dot{x} = Ax$ where $A$ is not diagonalizable."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="JCF of a Shear Matrix"
+                        context={"Let $A = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}$."}
+                        question={"Find the JCF and the generalized eigenspace."}
+                        solution={"1. Characteristic polynomial $p(t) = (t-3)^2$. Eigenvalue $\\lambda = 3$.\n2. $(A-3I) = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$. Kernel is spanned by $e_1 = (1, 0)^T$.\n3. Since $gm(3) = 1 < am(3) = 2$, $A$ is not diagonalizable.\n4. $(A-3I)^2 = 0$. Thus $K_3 = \\mathbb{R}^2$.\n5. The JCF is simply $J_2(3) = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}$ itself."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="What is the size of the largest Jordan block for eigenvalue λ related to?"
+                    options={[
+                      "The algebraic multiplicity am(λ).",
+                      "The geometric multiplicity gm(λ).",
+                      "The multiplicity of λ as a root of the minimal polynomial m(t).",
+                      "The dimension of the whole space V."
+                    ]}
+                    correctAnswer={2}
+                    explanation="This is a deep fact: the size of the largest Jordan block for λ is exactly the multiplicity of λ in the minimal polynomial m(t). For example, if m(t) = (t-3)^2, the largest block for λ=3 is 2x2."
                   />
                 </div>
               )}
