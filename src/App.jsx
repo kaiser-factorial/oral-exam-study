@@ -259,6 +259,24 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Power Series & Interchanging Limits</li>
                         </>
                       )}
+                      {activeSubject === 'Analysis II' && activeChapter === 1 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> $\sigma$-Algebras & Borel Sets</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Definition of a Measure Space</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis II' && activeChapter === 2 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Lebesgue Outer Measure $m^*$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Countable Subadditivity</li>
+                        </>
+                      )}
+                      {activeSubject === 'Analysis II' && activeChapter === 3 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Carathéodory's Criterion</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500" /> Regularity of Lebesgue Measure</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -271,6 +289,10 @@ const AppContent = () => {
                         {activeSubject === 'Analysis I' && activeChapter === 4 && "Master the MVT as the bridge between derivative and function values."}
                         {activeSubject === 'Analysis I' && activeChapter === 5 && "Explain the role of the monotonically increasing integrator alpha."}
                         {activeSubject === 'Analysis I' && activeChapter === 6 && "Justify why uniform convergence is required to preserve continuity/integrability."}
+                        
+                        {activeSubject === 'Analysis II' && activeChapter === 1 && "Explain why we cannot define a measure on the power set of R."}
+                        {activeSubject === 'Analysis II' && activeChapter === 2 && "Understand why outer measure is not countably additive in general."}
+                        {activeSubject === 'Analysis II' && activeChapter === 3 && "Master the Carathéodory condition as the bridge to additivity."}
                       </li>
                     </ul>
                   </div>
@@ -605,6 +627,54 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="This is a fundamental theorem: the uniform limit of a sequence of continuous functions is itself continuous."
+                  />
+                </div>
+              )}
+
+              {/* Analysis II Chapters */}
+              {activeSubject === 'Analysis II' && activeChapter === 1 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      Measurable Spaces
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">$\sigma$-Algebras</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Let $X$ be a set. A collection $\\mathscr{F}$ of subsets of $X$ is a **$\\sigma$-algebra** if:\n\n1. $\\emptyset \\in \\mathscr{F}$\n2. $A \\in \\mathscr{F} \\implies A^c \\in \\mathscr{F}$ (Closed under complements)\n3. $\{A_n\}_{n=1}^\\infty \\subset \\mathscr{F} \\implies \\bigcup_{n=1}^\\infty A_n \\in \\mathscr{F}$ (Closed under countable unions)\n\nThe pair $(X, \\mathscr{F})$ is called a **measurable space**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
+                        <p className="text-white font-medium mb-2">Borel $\sigma$-Algebras</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"The **Borel $\\sigma$-algebra** $\\mathscr{B}$ on a topological space $X$ is the smallest $\\sigma$-algebra containing all open sets of $X$. In $\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Non-Measurable Sets"
+                        context={"Vitali's Theorem proves the existence of sets that are not Lebesgue measurable."}
+                        question={"Why can't we define a translation-invariant measure on $\\mathscr{P}(\\mathbb{R})$?"}
+                        solution={"If a measure $m$ is translation-invariant and countably additive, and assigns $m([0,1])=1$, then using the Axiom of Choice to construct a Vitali set $V$ leads to a contradiction. Specifically, a countable union of disjoint translates of $V$ would either have measure 0 or $\\infty$, failing to sum to the measure of the interval containing them."}
+                      />
+                    </div>
+                  </section>
+
+                  <ProofBuilder 
+                    title="Properties of Measures"
+                    theorem={"If $\\mu$ is a measure, and $A_n \\nearrow A$, then $\\mu(A_n) \\to \\mu(A)$ (Continuity from below)."}
+                    steps={[
+                      "Let $A_1 \\subset A_2 \\subset A_3 \\dots$ be a nested sequence of measurable sets.",
+                      "Define disjoint sets $B_1 = A_1, B_2 = A_2 \\setminus A_1, B_3 = A_3 \\setminus A_2, \\dots$",
+                      "Note that $\\bigcup_{k=1}^n B_k = A_n$ and $\\bigcup_{k=1}^\\infty B_k = A$.",
+                      "By countable additivity of $\\mu$: $\\mu(A) = \\mu(\\bigcup_{k=1}^\\infty B_k) = \\sum_{k=1}^\\infty \\mu(B_k)$.",
+                      "By definition of an infinite series: $\\sum_{k=1}^\\infty \\mu(B_k) = \\lim_{n \\to \\infty} \\sum_{k=1}^n \\mu(B_k)$.",
+                      "Since $\\sum_{k=1}^n \\mu(B_k) = \\mu(\\bigcup_{k=1}^n B_k) = \\mu(A_n)$, the result follows. Q.E.D."
+                    ]}
                   />
                 </div>
               )}
