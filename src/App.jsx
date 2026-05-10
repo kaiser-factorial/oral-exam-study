@@ -45,6 +45,15 @@ const AppContent = () => {
       { id: 7, title: 'Convergence Theorems' },
       { id: 8, title: 'Lp Spaces' },
     ],
+    'Linear Algebra I': [
+      { id: 1, title: 'Vector Spaces & Subspaces' },
+      { id: 2, title: 'Bases & Dimensions' },
+      { id: 3, title: 'Linear Transformations' },
+      { id: 4, title: 'Matrix Representations' },
+      { id: 5, title: 'Invertibility & Change of Basis' },
+      { id: 6, title: 'Eigenvalues & Determinants' },
+      { id: 7, title: 'Cayley-Hamilton Theorem' },
+    ],
     'Linear Algebra II': [
       { id: 1, title: 'Abstract Linear Algebra' },
       { id: 2, title: 'Volume & Determinants' },
@@ -378,6 +387,49 @@ const AppContent = () => {
                 ]}
                 correctAnswer={1}
                 explanation="The space of linear maps L(V, W) is isomorphic to the space of m x n matrices, which has dimension m * n."
+              />
+            </div>
+          )}
+
+          {activeSubject === 'Linear Algebra I' && activeChapter === 1 && (
+            <div className="space-y-12">
+              <section className="glass-card">
+                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                  Vector Spaces & Subspaces
+                </h3>
+                <div className="prose prose-invert max-w-none space-y-6">
+                  <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                    <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                    <p className="text-white font-medium mb-2">Vector Space Subspace</p>
+                    <div className="text-slate-300 text-sm">
+                      A subset $U \subset V$ is a subspace if it satisfies three conditions:
+                      <ul className="list-disc ml-6 mt-2 space-y-1">
+                        <li>Additive identity: $0 \in U$</li>
+                        <li>Closed under addition: $u, w \in U \implies u + w \in U$</li>
+                        <li>Closed under scalar multiplication: $a \in \mathbb{F}, u \in U \implies au \in U$</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <Example 
+                    title="The Intersection of Subspaces"
+                    context="Let $U_1, U_2$ be subspaces of $V$."
+                    question="Is $U_1 \cap U_2$ always a subspace?"
+                    solution="Yes. Since $0 \in U_1$ and $0 \in U_2$, $0 \in U_1 \cap U_2$. If $u, w \in U_1 \cap U_2$, then $u+w \in U_1$ (since $U_1$ is a subspace) and $u+w \in U_2$ (since $U_2$ is a subspace), so $u+w \in U_1 \cap U_2$. Similar logic applies to scalar multiplication."
+                  />
+                </div>
+              </section>
+
+              <Quiz 
+                question="Which of the following is NOT necessarily a subspace of V?"
+                options={[
+                  "The set {0}",
+                  "The entire space V",
+                  "The union of two subspaces U1 and U2",
+                  "The intersection of two subspaces U1 and U2"
+                ]}
+                correctAnswer={2}
+                explanation="The union of two subspaces is only a subspace if one is contained within the other. For example, the x-axis and y-axis in R^2 are subspaces, but their union is not (it's not closed under addition)."
               />
             </div>
           )}
