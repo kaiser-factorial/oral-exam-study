@@ -365,6 +365,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Cauchy-Schwarz Inequality</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 2 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Orthogonal Bases (ONBs)</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Gram-Schmidt Process</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -396,6 +402,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 7 && "Explain the geometric interpretation of the determinant as the signed volume scaling factor."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 8 && "Master the Diagonalization Test: T is diagonalizable iff its minimal polynomial splits into distinct linear factors."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 1 && "Understand that the inner product is the 'compass' that brings geometry to algebra."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 2 && "Explain the Best Approximation Theorem: the closest vector in W to v is its orthogonal projection."}
                       </li>
                     </ul>
                   </div>
@@ -643,6 +650,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The determinant is NOT additive. For example, let A = I and B = -I. Then det(A) = 1, det(B) = (-1)^n, but det(A+B) = det(0) = 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 2 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Orthogonality & Gram-Schmidt" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Orthonormal Bases (ONB)</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A set $\\{e_1, \\dots, e_n\\}$ is **orthonormal** if $\\langle e_i, e_j \\rangle = \\delta_{ij}$. \n\n**The Big Benefit**: If $\\beta$ is an ONB, then any vector $v$ can be represented as:\n\n$$v = \\sum_{i=1}^n \\langle v, e_i \\rangle e_i$$\n\nThese coefficients $\\langle v, e_i \\rangle$ are called **Fourier Coefficients**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Process</h4>
+                        <p className="text-white font-medium mb-2">Gram-Schmidt Algorithm</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"To turn a basis $\\{v_1, \\dots, v_n\\}$ into an ONB $\\{e_1, \\dots, e_n\\}$:\n\n1. $u_1 = v_1, \\quad e_1 = u_1 / \\|u_1\\|$\n2. $u_k = v_k - \\sum_{j=1}^{k-1} \\langle v_k, e_j \\rangle e_j$\n3. $e_k = u_k / \\|u_k\\|$\n\nEach $u_k$ is the part of $v_k$ that is **orthogonal** to the space spanned by the previous vectors."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Geometry</h4>
+                        <p className="text-white font-medium mb-2">Orthogonal Projections</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $W$ is a subspace with ONB $\\{e_1, \\dots, e_k\\}$, the **projection** of $v$ onto $W$ is:\n\n$$P_W(v) = \\sum_{i=1}^k \\langle v, e_i \\rangle e_i$$\n\n**Best Approximation**: $P_W(v)$ is the unique vector in $W$ that minimizes $\|v - w\|$. I.e., $\|v - P_W(v)\| \\le \|v - w\|$ for all $w \\in W$."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Projecting onto a Plane"
+                        context={"Let $W \\subset \\mathbb{R}^3$ be the plane spanned by $e_1 = (1, 0, 0)$ and $e_2 = (0, 1, 0)$."}
+                        question={"Find the projection of $v = (3, 4, 5)$ onto $W$."}
+                        solution={"Since $\{e_1, e_2\}$ is already an ONB for $W$:\n\n1. $\\langle v, e_1 \\rangle = 3$\n2. $\\langle v, e_2 \\rangle = 4$\n\nThus, $P_W(v) = 3e_1 + 4e_2 = (3, 4, 0)$. The error vector $v - P_W(v) = (0, 0, 5)$ is orthogonal to the plane."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which theorem states that the sum of the squares of the lengths of the legs of an orthogonal triangle equals the square of the hypotenuse?"
+                    options={[
+                      "Cauchy-Schwarz Inequality",
+                      "The Pythagorean Theorem",
+                      "Bessel's Inequality",
+                      "The Parallelogram Law"
+                    ]}
+                    correctAnswer={1}
+                    explanation="The Pythagorean Theorem in Inner Product Spaces states: if u is orthogonal to v, then ||u+v||^2 = ||u||^2 + ||v||^2. This is a direct consequence of the inner product axioms."
                   />
                 </div>
               )}
