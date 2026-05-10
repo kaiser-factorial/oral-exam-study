@@ -1606,7 +1606,7 @@ const AppContent = () => {
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
                         <p className="text-white font-medium mb-2"><LatexRenderer text="Borel $\sigma$-Algebras" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"The **Borel $\\sigma$-algebra** $\\mathscr{B}$ on a topological space $X$ is the smallest $\\sigma$-algebra containing all open sets of $X$. In $\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
+                          <LatexRenderer text={"The **Borel $\\\\sigma$-algebra** $\\\\mathscr{B}$ on a topological space $X$ is the smallest $\\\\sigma$-algebra containing all open sets of $X$. In $\\\\mathbb{R}$, this includes all intervals, open sets, closed sets, and their countable intersections/unions."} />
                         </div>
                       </div>
 
