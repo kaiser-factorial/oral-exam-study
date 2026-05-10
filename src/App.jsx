@@ -401,6 +401,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Positive Definiteness</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 8 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Multilinear Algebra</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Tensors & ML</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -438,6 +444,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra II' && activeChapter === 5 && "Explain the structure of the Jordan Canonical Form and why we need generalized eigenvectors."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 6 && "Master the SVD: why is it the 'Universal Decomposition' and how does it drive PCA and Noise Reduction?"}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 7 && "Understand Quadratic Forms: explain Sylvester's Law of Inertia and the signature of a matrix."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 8 && "Tensors in ML: understand how multidimensional arrays represent higher-order multilinear relationships."}
                       </li>
                     </ul>
                   </div>
@@ -793,6 +800,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="This is the 'Heart of the Spectral Theorem.' Since <Tv, w> = <v, Tw>, we have λ<v, w> = μ<v, w>, which implies (λ - μ)<v, w> = 0. If λ ≠ μ, then <v, w> must be 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 8 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Multilinear Algebra & Tensors" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definitions</h4>
+                        <p className="text-white font-medium mb-2">Multilinear Maps & Tensor Products</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Multilinear Map**: A function $f: V_1 \\times \\dots \\times V_k \\to F$ linear in each argument.\n2. **Tensor Product $V \\otimes W$**: The space that 'linearizes' bilinear maps. For any bilinear map $B: V \\times W \\to U$, there exists a unique linear map $L: V \\otimes W \\to U$ such that $B(v, w) = L(v \\otimes w)$.\n3. **Tensor Rank (Math)**: The number of vector spaces being producted (e.g., $V \\otimes W$ is rank 2)."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Machine Learning Context</h4>
+                        <p className="text-white font-medium mb-2">Tensors as Data Containers</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"In ML (PyTorch/TF), a 'tensor' is a multidimensional array. The **order** of the tensor matches the mathematical rank:\n- **Rank 0**: Scalar (e.g., Loss value)\n- **Rank 1**: Vector (e.g., Bias vector)\n- **Rank 2**: Matrix (e.g., Weight matrix)\n- **Rank 3**: Image (Channels, Height, Width)\n- **Rank 4**: Batch of Images (Batch size, Channels, Height, Width)"} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Operation</h4>
+                        <p className="text-white font-medium mb-2">Contraction & Einstein Summation</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"**Contraction** is the generalization of the trace or dot product. In ML, this is often written using **einsum** notation:\n`z = torch.einsum('ijk,lkm->ijlm', A, B)`\nThis multilinear operation sums over shared indices, effectively 'reducing' the rank while preserving relationships between dimensions."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Tensor Contraction (Outer Product)"
+                        context={"Let $u = (1, 2)$ and $v = (3, 4, 5)$."}
+                        question={"Find the tensor product $u \\otimes v$."}
+                        solution={"The tensor product is the outer product matrix:\n$$u \\otimes v = \\begin{pmatrix} 1(3) & 1(4) & 1(5) \\\\ 2(3) & 2(4) & 2(5) \\end{pmatrix} = \\begin{pmatrix} 3 & 4 & 5 \\\\ 6 & 8 & 10 \\end{pmatrix}$$\nThis rank-2 tensor captures all possible interactions between the features in $u$ and $v$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="What is the universal property of the tensor product?"
+                    options={[
+                      "It makes every vector space finite-dimensional.",
+                      "It converts any multilinear map into a unique linear map on the tensor space.",
+                      "It ensures that the determinant is always 1.",
+                      "It is the same as the direct sum V + W."
+                    ]}
+                    correctAnswer={1}
+                    explanation="The entire point of tensors is the Universal Property: it allows us to study complex multilinear interactions (like those in Deep Learning) using the familiar tools of linear algebra (linear maps, matrices)."
                   />
                 </div>
               )}
