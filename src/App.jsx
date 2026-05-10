@@ -53,12 +53,12 @@ const AppContent = () => {
     'Linear Algebra I': [
       { id: 1, title: 'Vector Spaces & Subspaces' },
       { id: 2, title: 'Bases, Dimension & Duality' },
-      { id: 3, title: 'Quotient Spaces & Direct Sums' },
-      { id: 4, title: 'Linear Transformations & Rank' },
-      { id: 5, title: 'Matrix Representations' },
-      { id: 6, title: 'Operators & Invariance' },
+      { id: 3, title: 'Dual Spaces $V^*$' },
+      { id: 4, title: 'Quotient Spaces & Direct Sums' },
+      { id: 5, title: 'Maps $[T]_\\beta^\\gamma$' },
+      { id: 6, title: 'Change of Basis' },
       { id: 7, title: 'Determinants & Multilinearity' },
-      { id: 8, title: 'Spectral Theory' },
+      { id: 8, title: 'Spectral Theory ($p, m$)' },
     ],
     'Linear Algebra II': [
       { id: 1, title: 'Inner Product Spaces' },
@@ -320,13 +320,13 @@ const AppContent = () => {
                       {activeSubject === 'Linear Algebra I' && activeChapter === 2 && (
                         <>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Bases & Dimension</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Dual Spaces $V^*$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Dual Spaces $V^*$" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 3 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Quotient Spaces $V/W$</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Direct Sums $V = U \oplus W$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Quotient Spaces $V/W$" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Direct Sums $V = U \\oplus W$" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 4 && (
@@ -337,7 +337,7 @@ const AppContent = () => {
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 5 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Matrix Representation $[T]_\beta^\gamma$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Representation $[T]_\\beta^\\gamma$" inline={true} /></li>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Covariant vs Contravariant</li>
                         </>
                       )}
@@ -355,7 +355,7 @@ const AppContent = () => {
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 8 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Characteristic vs Minimal $p(t), m(t)$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Characteristic vs Minimal $p(t), m(t)$" inline={true} /></li>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Cayley-Hamilton Theorem</li>
                         </>
                       )}
@@ -575,7 +575,7 @@ const AppContent = () => {
 
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Concept</h4>
-                        <p className="text-white font-medium mb-2">Dual Space $V^*$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Dual Space $V^*$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"The **dual space** $V^*$ is the set of all linear functionals $f: V \\to F$. If $\{v_1, \\dots, v_n\}$ is a basis for $V$, the **dual basis** $\{f_1, \\dots, f_n\}$ for $V^*$ is defined by:\n\n$$f_i(v_j) = \\delta_{ij} = \\begin{cases} 1 & i=j \\\\ 0 & i\\neq j \\end{cases}$$"} />
                         </div>
@@ -608,12 +608,12 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Quotient Spaces & Direct Sums" inline={true} />
+                      <LatexRenderer text="Quotient Spaces & Direct Sums $V = U \\oplus W$" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Quotient Space $V/W$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Quotient Space $V/W$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"Let $W$ be a subspace of $V$. The **quotient space** $V/W$ is the set of all cosets $v + W = \{v + w : w \\in W\}$. Addition and scalar multiplication are defined on cosets by:\n\n1. $(v_1 + W) + (v_2 + W) = (v_1 + v_2) + W$\n2. $c(v + W) = (cv) + W$"} />
                         </div>
@@ -1124,7 +1124,7 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Spectral Theory" inline={true} />
+                      <LatexRenderer text="Spectral Theory ($p(t), m(t)$)" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
@@ -1224,7 +1224,7 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Matrix Representations" inline={true} />
+                      <LatexRenderer text="Matrix Representation $[T]_\\beta^\\gamma$" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
