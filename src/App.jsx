@@ -284,7 +284,7 @@ const AppContent = () => {
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Axiom</h4>
                         <p className="text-white font-medium mb-2">Least Upper Bound Property</p>
                         <div className="text-slate-300 text-sm">
-                          A set $S \subset \mathbb{R}$ is bounded above if there exists $M$ such that $x \le M$ for all $x \in S$. The field $\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\mathbb{R}$.
+                          A set $S \subset \mathbb{R}$ is bounded above if there exists $M$ such that $x \le M$ for all $x \in S$. The Real Field $\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\mathbb{R}$.
                         </div>
                       </div>
                     </div>
