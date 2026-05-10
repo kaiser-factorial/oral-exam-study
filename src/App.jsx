@@ -347,6 +347,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Projections & Nilpotence</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 7 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Axiomatic Determinants</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Cofactor Expansion</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -375,6 +381,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 4 && "Master the Rank-Nullity Theorem—the bridge between the 'lost' and 'gained' dimensions."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 5 && "Explain why vectors are 'contravariant' (transform inversely to the basis) and functionals are 'covariant'."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 6 && "Master the projection theorem: T is a projection iff V is the direct sum of its image and kernel."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 7 && "Explain the geometric interpretation of the determinant as the signed volume scaling factor."}
                       </li>
                     </ul>
                   </div>
@@ -576,6 +583,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="While spanning and dimension counts are related, the defining characteristic of a direct sum is the uniqueness of the decomposition, which is equivalent to saying the intersection is ONLY the zero vector {0}."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 7 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Determinants & Multilinearity" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">The Determinant Function</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"The **determinant** is the unique function $\\det: M_{n \\times n}(F) \\to F$ that is:\n\n1. **Multilinearly** dependent on rows.\n2. **Alternating**: $\\det(A) = 0$ if two rows are identical.\n3. **Normalized**: $\\det(I) = 1$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Computation</h4>
+                        <p className="text-white font-medium mb-2">Cofactors & Adjugates</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"The **Laplace Expansion** allows us to compute $\\det(A)$ by expanding along any row or column using **minors** $M_{ij}$ and **cofactors** $C_{ij} = (-1)^{i+j} \\det(M_{ij})$. The inverse of an invertible matrix is given by:\n\n$$A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)$$"} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Vander Monde Determinants"
+                        context={"Consider the matrix $V$ where $V_{ij} = x_i^{j-1}$."}
+                        question={"What is the determinant of a $3 \\times 3$ Vander Monde matrix?"}
+                        solution={"For $x_1, x_2, x_3$, the determinant is $\\det(V) = (x_2 - x_1)(x_3 - x_1)(x_3 - x_2)$. This shows the determinant is non-zero (the matrix is invertible) if and only if the $x_i$ are distinct."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which property of the determinant is FALSE?"
+                    options={[
+                      "det(AB) = det(A)det(B)",
+                      "det(A + B) = det(A) + det(B)",
+                      "det(A^T) = det(A)",
+                      "det(cA) = c^n det(A)"
+                    ]}
+                    correctAnswer={1}
+                    explanation="The determinant is NOT additive. For example, let A = I and B = -I. Then det(A) = 1, det(B) = (-1)^n, but det(A+B) = det(0) = 0."
                   />
                 </div>
               )}
