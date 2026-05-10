@@ -341,6 +341,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Covariant vs Contravariant</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 6 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Invariant Subspaces</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Projections & Nilpotence</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -368,6 +374,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 3 && "Explain the geometric intuition of a quotient space as 'collapsing' W to zero."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 4 && "Master the Rank-Nullity Theorem—the bridge between the 'lost' and 'gained' dimensions."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 5 && "Explain why vectors are 'contravariant' (transform inversely to the basis) and functionals are 'covariant'."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 6 && "Master the projection theorem: T is a projection iff V is the direct sum of its image and kernel."}
                       </li>
                     </ul>
                   </div>
@@ -569,6 +576,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="While spanning and dimension counts are related, the defining characteristic of a direct sum is the uniqueness of the decomposition, which is equivalent to saying the intersection is ONLY the zero vector {0}."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 6 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Operators & Invariance" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Invariant Subspaces</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A subspace $W \\subset V$ is **invariant** under $T \\in \\mathcal{L}(V)$ if $T(w) \\in W$ for all $w \\in W$. \n\nThis allow us to define the **restriction** $T|_W: W \\to W$, which is a linear operator on the smaller space $W$. If $V = U \\oplus W$ where both are invariant, the matrix of $T$ becomes **block diagonal**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Structure</h4>
+                        <p className="text-white font-medium mb-2">Projections & Nilpotence</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Projection (Idempotent)**: $T^2 = T$. Every projection corresponds to a direct sum $V = \\text{im}(T) \\oplus \\text{ker}(T)$.\n2. **Nilpotent**: $T^k = 0$ for some $k \\in \\mathbb{N}$. The smallest such $k$ is the **degree of nilpotence**."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Cyclic Vectors"
+                        context={"Let $T$ be nilpotent of degree $k$."}
+                        question={"What can we say about the set $\{v, T(v), T^2(v), \\dots, T^{k-1}(v)\}$ for some $v$ such that $T^{k-1}(v) \\neq 0$?"}
+                        solution={"This set is **linearly independent**. It forms a basis for a $k$-dimensional invariant subspace. In the context of Jordan Form, this corresponds to a single Jordan block of size $k$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="If T is a projection, what are its only possible eigenvalues?"
+                    options={[
+                      "0 and 1",
+                      "Any real number",
+                      "1 only",
+                      "No eigenvalues"
+                    ]}
+                    correctAnswer={0}
+                    explanation="If Tv = λv, then T²v = λ²v. Since T² = T, we have λ²v = λv, which implies λ(λ-1)v = 0. Since v ≠ 0, λ must be 0 or 1."
                   />
                 </div>
               )}
