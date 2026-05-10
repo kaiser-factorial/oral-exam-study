@@ -449,4 +449,13 @@ const AppContent = () => {
   )
 }
 
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<AppContent />} />
+      <Route path="/study/:subjectId/:chapterId" element={<AppContent />} />
+    </Routes>
+  </Router>
+)
+
 export default App
