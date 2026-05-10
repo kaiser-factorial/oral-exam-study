@@ -34,6 +34,26 @@ const AppContent = () => {
       { id: 4, title: 'Differentiation' },
       { id: 5, title: 'Integration' },
       { id: 6, title: 'Series' },
+    ],
+    'Analysis II': [
+      { id: 1, title: 'Measurable Spaces' },
+      { id: 2, title: 'Lebesgue Outer Measure' },
+      { id: 3, title: 'Lebesgue Measure' },
+      { id: 4, title: 'General Measures' },
+      { id: 5, title: 'Measurable Functions' },
+      { id: 6, title: 'Lebesgue Integration' },
+      { id: 7, title: 'Convergence Theorems' },
+      { id: 8, title: 'Lp Spaces' },
+    ],
+    'Linear Algebra II': [
+      { id: 1, title: 'Abstract Linear Algebra' },
+      { id: 2, title: 'Volume & Determinants' },
+      { id: 3, title: 'Eigenvalues & Diagonalization' },
+      { id: 4, title: 'Inner Product Spaces' },
+      { id: 5, title: 'Unitary & Adjoint Maps' },
+      { id: 6, title: 'Schur & SVD' },
+      { id: 7, title: 'Tensors & Dual Spaces' },
+      { id: 8, title: 'Hermitian Forms' },
     ]
   }
 
@@ -238,19 +258,129 @@ const AppContent = () => {
                     ]}
                   />
 
-                  <Quiz 
-                    question="Which property distinguishes a compact set in R^n from a closed set?"
-                    options={[
-                      "It must contain all its limit points.",
-                      "It must be bounded.",
-                      "It must be an interval.",
-                      "It must be non-empty."
-                    ]}
-                    correctAnswer={1}
-                    explanation="While both closed and compact sets contain their limit points, only compact sets are guaranteed to be bounded in R^n (Heine-Borel Theorem)."
+              <Quiz 
+                question="Which property distinguishes a compact set in R^n from a closed set?"
+                options={[
+                  "It must contain all its limit points.",
+                  "It must be bounded.",
+                  "It must be an interval.",
+                  "It must be non-empty."
+                ]}
+                correctAnswer={1}
+                explanation="While both closed and compact sets contain their limit points, only compact sets are guaranteed to be bounded in R^n (Heine-Borel Theorem)."
+              />
+            </div>
+          )}
+
+          {activeSubject === 'Analysis II' && activeChapter === 1 && (
+            <div className="space-y-12">
+              <section className="glass-card">
+                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                  Measurable Spaces & $\sigma$-algebras
+                </h3>
+                <div className="prose prose-invert max-w-none space-y-6">
+                  <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                    <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                    <p className="text-white font-medium mb-2">$\sigma$-algebra</p>
+                    <div className="text-slate-300 text-sm">
+                      A collection $\mathcal{M}$ of subsets of $X$ is a $\sigma$-algebra if:
+                      <ul className="list-disc ml-6 mt-2 space-y-1">
+                        <li>$X \in \mathcal{M}$</li>
+                        <li>$A \in \mathcal{M} \implies A^c \in \mathcal{M}$ (Closed under complements)</li>
+                        <li>$A_n \in \mathcal{M} \implies \bigcup_{n=1}^\infty A_n \in \mathcal{M}$ (Closed under countable unions)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <Example 
+                    title="Smallest $\sigma$-algebra"
+                    context="Let $X$ be any set."
+                    question="What is the smallest possible $\sigma$-algebra on $X$?"
+                    solution="The trivial $\sigma$-algebra $\{\emptyset, X\}$. It satisfies all three axioms: it contains $X$, complements are included ($\emptyset^c = X, X^c = \emptyset$), and any union of its elements is still in the collection."
                   />
                 </div>
-              )}
+              </section>
+
+              <ProofBuilder 
+                title="Closure under Countable Intersections"
+                theorem="\text{If } \mathcal{M} \text{ is a } \sigma\text{-algebra, then it is closed under countable intersections.}"
+                steps={[
+                  "Let \{A_n\}_{n=1}^\infty be a countable collection of sets in \mathcal{M}.",
+                  "By the second axiom, each complement A_n^c is in \alt{\mathcal{M}}{M}.",
+                  "By the third axiom, the union of these complements \bigcup A_n^c is in \alt{\mathcal{M}}{M}.",
+                  "By De Morgan's Law, (\bigcap A_n)^c = \bigcup A_n^c.",
+                  "Since (\bigcap A_n)^c is in \alt{\mathcal{M}}{M}, its complement (\bigcap A_n) must also be in \alt{\mathcal{M}}{M}. Q.E.D."
+                ]}
+              />
+
+              <Quiz 
+                question="Is the union of two sigma-algebras always a sigma-algebra?"
+                options={[
+                  "Yes, always.",
+                  "No, not necessarily.",
+                  "Only if the set X is finite.",
+                  "Only if one is a subset of the other."
+                ]}
+                correctAnswer={1}
+                explanation="The union of two sigma-algebras is not necessarily a sigma-algebra because it may not be closed under unions of elements from different algebras. However, the intersection of any collection of sigma-algebras is always a sigma-algebra."
+              />
+            </div>
+          )}
+
+          {activeSubject === 'Linear Algebra II' && activeChapter === 1 && (
+            <div className="space-y-12">
+              <section className="glass-card">
+                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                  Abstract Vector Spaces & Maps
+                </h3>
+                <div className="prose prose-invert max-w-none space-y-6">
+                  <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                    <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                    <p className="text-white font-medium mb-2">Linear Transformation</p>
+                    <div className="text-slate-300 text-sm">
+                      A map $T: V \to W$ between vector spaces is linear if for all $u, v \in V$ and $c \in \mathbb{F}$:
+                      <ul className="list-disc ml-6 mt-2 space-y-1">
+                        <li>$T(u + v) = T(u) + T(v)$ (Additivity)</li>
+                        <li>$T(cu) = cT(u)$ (Homogeneity)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <Example 
+                    title="The Zero Map"
+                    context="Let $T: V \to W$ be defined by $T(v) = 0$ for all $v \in V$."
+                    question="Is this a linear transformation?"
+                    solution="Yes. $T(u+v) = 0 = 0 + 0 = T(u) + T(v)$ and $T(cv) = 0 = c(0) = cT(v)$. It is the additive identity in the vector space $\mathcal{L}(V, W)$."
+                  />
+                </div>
+              </section>
+
+              <ProofBuilder 
+                title="Linearity of the Inverse Map"
+                theorem="\text{If } T: V \to W \text{ is an invertible linear map, then } T^{-1} \text{ is also linear.}"
+                steps={[
+                  "Let w_1, w_2 \in W. We need to show T^{-1}(w_1 + w_2) = T^{-1}(w_1) + T^{-1}(w_2).",
+                  "Since T is invertible, there exist unique v_1, v_2 \in V such that T(v_1) = w_1 and T(v_2) = w_2.",
+                  "Then T(v_1 + v_2) = T(v_1) + T(v_2) = w_1 + w_2 by linearity of T.",
+                  "Applying T^{-1} to both sides: T^{-1}(w_1 + w_2) = v_1 + v_2.",
+                  "Since v_1 = T^{-1}(w_1) and v_2 = T^{-1}(w_2), we have T^{-1}(w_1 + w_2) = T^{-1}(w_1) + T^{-1}(w_2).",
+                  "A similar argument follows for scalar multiplication. Q.E.D."
+                ]}
+              />
+
+              <Quiz 
+                question="What is the dimension of the space of linear maps L(V, W) if dim(V) = n and dim(W) = m?"
+                options={[
+                  "n + m",
+                  "n * m",
+                  "n^m",
+                  "max(n, m)"
+                ]}
+                correctAnswer={1}
+                explanation="The space of linear maps L(V, W) is isomorphic to the space of m x n matrices, which has dimension m * n."
+              />
+            </div>
+          )}
 
               {activeChapter > 1 && (
                 <div className="h-[400px] flex flex-col items-center justify-center text-center">
