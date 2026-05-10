@@ -395,6 +395,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Low-Rank Approximation</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 7 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Bilinear & Quadratic Forms</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Positive Definiteness</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -431,6 +437,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra II' && activeChapter === 4 && "Master the Spectral Theorem: why is every real symmetric matrix diagonalizable by an ONB? (Key for PCA)."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 5 && "Explain the structure of the Jordan Canonical Form and why we need generalized eigenvectors."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 6 && "Master the SVD: why is it the 'Universal Decomposition' and how does it drive PCA and Noise Reduction?"}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 7 && "Understand Quadratic Forms: explain Sylvester's Law of Inertia and the signature of a matrix."}
                       </li>
                     </ul>
                   </div>
@@ -786,6 +793,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="This is the 'Heart of the Spectral Theorem.' Since <Tv, w> = <v, Tw>, we have λ<v, w> = μ<v, w>, which implies (λ - μ)<v, w> = 0. If λ ≠ μ, then <v, w> must be 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 7 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Bilinear & Quadratic Forms" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definitions</h4>
+                        <p className="text-white font-medium mb-2">Linearity in Two Slots</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Bilinear Form**: A mapping $H: V \\times V \\to F$ that is linear in both arguments.\n2. **Symmetric Form**: $H(u, v) = H(v, u)$. These are represented by symmetric matrices $A$.\n3. **Quadratic Form**: The associated function $Q(v) = H(v, v) = v^T A v$. \n\n**Oral Tip**: While a linear map transforms space, a bilinear form measures it. Under basis change $P$, the matrix $A$ transforms as $P^T A P$ (Congruence), not $P^{-1} A P$ (Similarity)."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Classification</h4>
+                        <p className="text-white font-medium mb-2">Positive Definiteness & Inertia</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"A symmetric form is:\n- **Positive Definite**: $Q(v) > 0$ for all $v \\neq 0$. (All eigenvalues $> 0$).\n- **Negative Definite**: $Q(v) < 0$ for all $v \\neq 0$. (All eigenvalues $< 0$).\n- **Indefinite**: $Q(v)$ takes both positive and negative values.\n\n**Sylvester’s Law of Inertia**: The number of positive, negative, and zero eigenvalues (the **signature**) is an invariant under congruence."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Optimization Context</h4>
+                        <p className="text-white font-medium mb-2">The Hessian Matrix</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"In multivariable calculus, the **Hessian matrix** of second derivatives defines a local quadratic form. If the Hessian is positive definite at a critical point, the function has a local minimum (a 'bowl'). This is the basis for the Second Derivative Test in high dimensions."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Classifying a Quadratic Form"
+                        context={"Let $Q(x, y) = 2x^2 + 4xy + 5y^2$."}
+                        question={"Write the symmetric matrix A and determine if Q is positive definite."}
+                        solution={"1. Matrix $A = \\begin{pmatrix} 2 & 2 \\\\ 2 & 5 \\end{pmatrix}$. \n2. Eigenvalues: $(2-\\lambda)(5-\\lambda) - 4 = 0 \\implies \\lambda^2 - 7\\lambda + 6 = 0$.\n3. $\\lambda = 6, 1$. \n\nSince both eigenvalues are positive, the form is **Positive Definite**. Geometrically, this landscape is an upward-opening paraboloid."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="How does the matrix A of a bilinear form change when we change the basis by matrix P?"
+                    options={[
+                      "A -> P^-1 A P",
+                      "A -> P^T A P",
+                      "A -> P A P^T",
+                      "A -> det(P) A"
+                    ]}
+                    correctAnswer={1}
+                    explanation="This is a classic trap! Operators transform via similarity (P^-1 A P), but Bilinear Forms transform via congruence (P^T A P). This is because the form acts on two vectors, each of which is transformed by P."
                   />
                 </div>
               )}
