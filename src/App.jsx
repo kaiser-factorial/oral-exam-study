@@ -155,16 +155,18 @@ const AppContent = () => {
                   <button
                     key={chap.id}
                     onClick={() => navigate(`/study/${encodeURIComponent(activeSubject)}/${chap.id}`)}
-                    className={`w-full flex items-center gap-3 p-4 rounded-xl text-sm font-medium transition-all ${
+                    className={`w-full flex items-start gap-3 p-4 rounded-xl text-sm font-medium transition-all text-left ${
                       activeChapter === chap.id 
                         ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-lg shadow-indigo-500/5' 
                         : 'text-slate-500 hover:bg-white/5 hover:text-slate-200'
                     }`}
                   >
-                    <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] ${activeChapter === chap.id ? 'bg-indigo-500 text-white' : 'bg-white/5'}`}>
+                    <span className={`w-6 h-6 shrink-0 rounded-lg flex items-center justify-center text-[10px] mt-0.5 ${activeChapter === chap.id ? 'bg-indigo-500 text-white' : 'bg-white/5'}`}>
                       {chap.id}
                     </span>
-                    <LatexRenderer text={chap.title} inline={true} />
+                    <div className="flex-grow">
+                      <LatexRenderer text={chap.title} inline={true} />
+                    </div>
                   </button>
                 ))}
               </div>
