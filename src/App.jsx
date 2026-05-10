@@ -389,6 +389,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Generalized Eigenspaces</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra II' && activeChapter === 6 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Singular Value Decomp (SVD)</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500" /> Low-Rank Approximation</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -424,6 +430,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra II' && activeChapter === 3 && "Prove why self-adjoint operators must have real eigenvalues: use the definition of the adjoint."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 4 && "Master the Spectral Theorem: why is every real symmetric matrix diagonalizable by an ONB? (Key for PCA)."}
                         {activeSubject === 'Linear Algebra II' && activeChapter === 5 && "Explain the structure of the Jordan Canonical Form and why we need generalized eigenvectors."}
+                        {activeSubject === 'Linear Algebra II' && activeChapter === 6 && "Master the SVD: why is it the 'Universal Decomposition' and how does it drive PCA and Noise Reduction?"}
                       </li>
                     </ul>
                   </div>
@@ -779,6 +786,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="This is the 'Heart of the Spectral Theorem.' Since <Tv, w> = <v, Tw>, we have λ<v, w> = μ<v, w>, which implies (λ - μ)<v, w> = 0. If λ ≠ μ, then <v, w> must be 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra II' && activeChapter === 6 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Singular Value Decomposition (SVD)" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">The Theorem</h4>
+                        <p className="text-white font-medium mb-2">Universal Matrix Factorization</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For any matrix $A \\in \\mathbb{C}^{m \\times n}$, there exists a decomposition $A = U \\Sigma V^*$, where:\n\n1. **$V \\in \\mathbb{C}^{n \\times n}$**: Unitary matrix of **Right Singular Vectors** (eigenvectors of $A^* A$).\n2. **$U \\in \\mathbb{C}^{m \\times m}$**: Unitary matrix of **Left Singular Vectors** (eigenvectors of $AA^*$).\n3. **$\\Sigma \\in \\mathbb{R}^{m \\times n}$**: Diagonal matrix of **Singular Values** $\\sigma_i \\ge 0$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Data Science Context</h4>
+                        <p className="text-white font-medium mb-2">Low-Rank Approximation & Noise Reduction</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"**Eckart-Young Theorem**: The best rank-$k$ approximation of $A$ (in Frobenius norm) is $A_k = \\sum_{i=1}^k \\sigma_i u_i v_i^*$. \n\n**Application**: In Data Science, we drop the 'noise' (small singular values) to capture the 'signal' (large singular values). This is the exact mechanism behind **Image Compression** and **Latent Semantic Analysis**."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Oral mastery</h4>
+                        <p className="text-white font-medium mb-2">SVD vs. Eigen-decomposition</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"**Oral Tip**: Unlike eigen-decomposition, SVD is **always** possible for **any** matrix (even non-square ones). It uses two different bases ($U$ and $V$) to account for maps between different spaces. If $A$ is symmetric, then $U = V$ and singular values are the absolute values of eigenvalues."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="SVD of a 2x1 Matrix"
+                        context={"Let $A = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$."}
+                        question={"Find the SVD $A = U\\Sigma V^*$."}
+                        solution={"1. $A^* A = (3, 4) \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} = 25$. Eigenvalue is 25, so $\\sigma_1 = 5$. \n2. $V$ is the $1 \\times 1$ matrix $(1)$.\n3. $AA^* = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}(3, 4) = \\begin{pmatrix} 9 & 12 \\\\ 12 & 16 \\end{pmatrix}$. \n4. Normalizing $A(1) = (3, 4)^T$ gives $u_1 = (0.6, 0.8)^T$. \n5. $A = \\begin{pmatrix} 0.6 & -0.8 \\\\ 0.8 & 0.6 \\end{pmatrix} \\begin{pmatrix} 5 \\\\ 0 \\end{pmatrix} (1) = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="Which theorem guarantees that SVD provides the best low-rank approximation?"
+                    options={[
+                      "The Spectral Theorem",
+                      "The Eckart-Young-Mirsky Theorem",
+                      "The Rank-Nullity Theorem",
+                      "The Cayley-Hamilton Theorem"
+                    ]}
+                    correctAnswer={1}
+                    explanation="The Eckart-Young theorem is the backbone of data compression. it states that the truncated SVD is the closest lower-rank matrix to the original data."
                   />
                 </div>
               )}
