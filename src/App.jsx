@@ -1083,7 +1083,7 @@ const AppContent = () => {
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
                         <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <p className="text-white font-medium mb-2">Inner Product over $F$</p>
+                        <p className="text-white font-medium mb-2"><LatexRenderer text="Inner Product over $F$" inline={true} /></p>
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={"An **inner product** on $V$ (where $F = \\mathbb{R}$ or $\\mathbb{C}$) is a function $\\langle \\cdot, \\cdot \\rangle: V \\times V \\to F$ satisfying:\n\n1. **Conjugate Symmetry**: $\\langle u, v \\rangle = \\overline{\\langle v, u \\rangle}$.\n2. **Linearity (1st slot)**: $\\langle au + v, w \\rangle = a\\langle u, w \\rangle + \\langle v, w \\rangle$.\n3. **Positive Definiteness**: $\\langle v, v \\rangle \\ge 0$, and $\\langle v, v \\rangle = 0 \\iff v = 0$."} />
                         </div>
