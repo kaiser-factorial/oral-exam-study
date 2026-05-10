@@ -329,6 +329,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Direct Sums $V = U \oplus W$</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 4 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Kernel & Image</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Rank-Nullity Theorem</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -354,6 +360,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 1 && "Master the Subspace Test—always check the zero vector first."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 2 && "Understand that the dual space V* consists of functionals, not vectors."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 3 && "Explain the geometric intuition of a quotient space as 'collapsing' W to zero."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 4 && "Master the Rank-Nullity Theorem—the bridge between the 'lost' and 'gained' dimensions."}
                       </li>
                     </ul>
                   </div>
@@ -555,6 +562,52 @@ const AppContent = () => {
                     ]}
                     correctAnswer={2}
                     explanation="While spanning and dimension counts are related, the defining characteristic of a direct sum is the uniqueness of the decomposition, which is equivalent to saying the intersection is ONLY the zero vector {0}."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 4 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Linear Transformations & Rank" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
+                        <p className="text-white font-medium mb-2">Kernel & Image</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"For a linear map $T: V \\to W$:\n\n1. **Kernel (Null Space)**: $\\text{ker}(T) = \\{v \\in V : T(v) = 0_W\\}$.\n2. **Image (Range)**: $\\text{im}(T) = \\{T(v) : v \\in V\\}$.\n\n$\\text{ker}(T)$ is a subspace of $V$, and $\\text{im}(T)$ is a subspace of $W$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Fundamental Theorem</h4>
+                        <p className="text-white font-medium mb-2">Rank-Nullity Theorem</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"If $V$ is finite-dimensional and $T: V \\to W$ is linear, then:\n\n$$\\dim(\\text{ker}(T)) + \\dim(\\text{im}(T)) = \\dim(V)$$\n\nThe dimension of the image is called the **rank** of $T$, and the dimension of the kernel is the **nullity**."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="The Differentiation Map"
+                        context={"Let $D: P_3(\\mathbb{R}) \\to P_2(\\mathbb{R})$ be the differentiation operator $D(p) = p'$."}
+                        question={"What is the nullity and rank of $D$?"}
+                        solution={"The kernel of $D$ is the set of constant polynomials (degree 0), which has dimension 1 (basis $\{1\}$). Thus, $\\text{nullity}(D) = 1$. Since $\\dim(P_3) = 4$, by the Rank-Nullity Theorem, $\\text{rank}(D) = 4 - 1 = 3$. This matches the fact that the image of $D$ is all of $P_2$, which has dimension 3."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="If T: V -> W is an isomorphism, which of the following is NOT true?"
+                    options={[
+                      "ker(T) = {0}.",
+                      "im(T) = W.",
+                      "dim(V) = dim(W).",
+                      "T maps every vector to its dual."
+                    ]}
+                    correctAnswer={3}
+                    explanation="An isomorphism is a bijective linear map. While T induces a relationship with the dual space, its primary definition is being 1-1 (ker=0) and onto (im=W), which implies the dimensions must match."
                   />
                 </div>
               )}
