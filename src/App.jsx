@@ -48,7 +48,7 @@ const AppContent = () => {
       { id: 5, title: 'Measurable Functions' },
       { id: 6, title: 'Lebesgue Integration' },
       { id: 7, title: 'Convergence Theorems' },
-      { id: 8, title: 'Lp Spaces' },
+      { id: 8, title: '$L^p$ Spaces' },
     ],
     'Linear Algebra I': [
       { id: 1, title: 'Vector Spaces & Subspaces' },
