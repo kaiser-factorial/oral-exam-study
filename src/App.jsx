@@ -25,10 +25,10 @@ const AppContent = () => {
   const activeChapter = chapterId ? parseInt(chapterId) : 1
 
   const subjects = [
-    { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', desc: 'Metric spaces, sequences, and fundamental integration theory.', short: 'Analysis I' },
-    { id: 'Analysis II', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.', short: 'Analysis II' },
-    { id: 'Linear Algebra I', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', desc: 'Vector space duality, quotients, and spectral theory.', short: 'Lin Alg I' },
-    { id: 'Linear Algebra II', color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.', short: 'Lin Alg II' },
+    { id: 'Analysis I', color: 'text-[#4295de]', bg: 'bg-[#4295de]/10', border: 'border-[#4295de]/30', desc: 'Metric spaces, sequences, and fundamental integration theory.', short: 'Analysis I' },
+    { id: 'Analysis II', color: 'text-[#4295de]', bg: 'bg-[#4295de]/10', border: 'border-[#4295de]/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.', short: 'Analysis II' },
+    { id: 'Linear Algebra I', color: 'text-[#ffd602]', bg: 'bg-[#ffd602]/10', border: 'border-[#ffd602]/30', desc: 'Vector space duality, quotients, and spectral theory.', short: 'Lin Alg I' },
+    { id: 'Linear Algebra II', color: 'text-[#d23c72]', bg: 'bg-[#d23c72]/10', border: 'border-[#d23c72]/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.', short: 'Lin Alg II' },
   ]
 
   const chapters = {
