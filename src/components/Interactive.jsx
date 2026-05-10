@@ -4,9 +4,25 @@ import { CheckCircle2, Circle, HelpCircle, ChevronDown, ChevronUp, Lightbulb, Be
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 
-// Helper to check if string contains LaTeX
-const hasLatex = (str) => typeof str === 'string' && (str.includes('$') || str.includes('\\'));
-const cleanLatex = (str) => str.replace(/\$/g, '');
+// Helper to render text with mixed LaTeX
+const LatexRenderer = ({ text }) => {
+  if (typeof text !== 'string') return text;
+  
+  // Split by $ but keep the delimiters to identify math parts
+  const parts = text.split(/(\$[^\$]+\$)/g);
+  
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith('$') && part.endsWith('$')) {
+          const math = part.slice(1, -1);
+          return <InlineMath key={i} math={math} />;
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+};
 
 export const Quiz = ({ question, options, correctAnswer, explanation }) => {
   const [selected, setSelected] = useState(null)
@@ -18,7 +34,7 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
         <HelpCircle size={18} className="text-indigo-400" /> Section Quiz
       </h4>
       <div className="text-sm text-slate-300 mb-6 leading-relaxed">
-        {hasLatex(question) ? <InlineMath math={cleanLatex(question)} /> : question}
+        <LatexRenderer text={question} />
       </div>
       
       <div className="space-y-3">
@@ -36,7 +52,7 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
                 : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10'
             }`}
           >
-            <span>{hasLatex(option) ? <InlineMath math={cleanLatex(option)} /> : option}</span>
+            <span><LatexRenderer text={option} /></span>
             {selected === idx && (idx === correctAnswer ? <CheckCircle2 size={16} /> : <Circle size={16} />)}
           </button>
         ))}
@@ -51,7 +67,7 @@ export const Quiz = ({ question, options, correctAnswer, explanation }) => {
           >
             <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">Logic</p>
             <div className="text-sm text-slate-400 leading-relaxed">
-              {hasLatex(explanation) ? <InlineMath math={cleanLatex(explanation)} /> : explanation}
+              <LatexRenderer text={explanation} />
             </div>
           </motion.div>
         )}
@@ -74,9 +90,9 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
 
       <div className="mb-6 p-4 bg-slate-900/50 rounded-lg border border-white/5 italic text-slate-300 text-sm">
         <strong className="text-emerald-400 not-italic block mb-1 uppercase text-[10px] tracking-widest font-black">Theorem:</strong>
-        {hasLatex(theorem) ? (
-          <BlockMath math={cleanLatex(theorem)} />
-        ) : theorem}
+        <div className="not-italic py-2">
+           <BlockMath math={theorem.replace(/\$/g, '')} />
+        </div>
       </div>
 
       <div className="space-y-4">
@@ -91,7 +107,7 @@ export const ProofBuilder = ({ title, theorem, steps }) => {
               <div className="flex gap-4">
                 <span className="font-mono text-[10px] opacity-50 mt-1 shrink-0">STEP 0{idx + 1}</span>
                 <div className="text-sm leading-relaxed">
-                  {hasLatex(step) ? <InlineMath math={cleanLatex(step)} /> : step}
+                  <LatexRenderer text={step} />
                 </div>
               </div>
             </motion.div>
@@ -142,8 +158,8 @@ export const Example = ({ title, context, question, solution }) => {
       </h4>
       
       <div className="text-sm text-slate-300 space-y-4 mb-6">
-        <div className="leading-relaxed">{hasLatex(context) ? <InlineMath math={cleanLatex(context)} /> : context}</div>
-        <div className="font-bold text-white">{hasLatex(question) ? <InlineMath math={cleanLatex(question)} /> : question}</div>
+        <div className="leading-relaxed"><LatexRenderer text={context} /></div>
+        <div className="font-bold text-white"><LatexRenderer text={question} /></div>
       </div>
 
       <button
@@ -162,7 +178,7 @@ export const Example = ({ title, context, question, solution }) => {
           >
             <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Solution</p>
             <div className="text-sm text-slate-400 leading-relaxed">
-              {hasLatex(solution) ? <BlockMath math={cleanLatex(solution)} /> : solution}
+              <LatexRenderer text={solution} />
             </div>
           </motion.div>
         )}

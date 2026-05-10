@@ -266,9 +266,9 @@ const AppContent = () => {
                         <div className="text-slate-300 text-sm">
                           A metric space is a set $X$ with a function $d: X \times X \to [0, \infty)$ such that for all $x, y, z \in X$:
                           <ul className="list-disc ml-6 mt-2 space-y-1">
-                            <li>$d(x, y) \ge 0$, and $d(x, y) = 0 \iff x = y$</li>
-                            <li>$d(x, y) = d(y, x)$ (Symmetry)</li>
-                            <li>$d(x, z) \le d(x, y) + d(y, z)$ (Triangle Inequality)</li>
+                            <li><InlineMath math="d(x, y) \ge 0"/>, and <InlineMath math="d(x, y) = 0 \iff x = y"/></li>
+                            <li><InlineMath math="d(x, y) = d(y, x)"/> (Symmetry)</li>
+                            <li><InlineMath math="d(x, z) \le d(x, y) + d(y, z)"/> (Triangle Inequality)</li>
                           </ul>
                         </div>
                       </div>
@@ -284,7 +284,7 @@ const AppContent = () => {
                         <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Axiom</h4>
                         <p className="text-white font-medium mb-2">Least Upper Bound Property</p>
                         <div className="text-slate-300 text-sm">
-                          A set $S \subset \mathbb{R}$ is bounded above if there exists $M$ such that $x \le M$ for all $x \in S$. The Real Field $\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\mathbb{R}$.
+                          {`A set $S \\subset \\mathbb{R}$ is bounded above if there exists $M$ such that $x \\le M$ for all $x \\in S$. The Real Field $\\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\\mathbb{R}$.`}
                         </div>
                       </div>
                     </div>
@@ -294,11 +294,11 @@ const AppContent = () => {
                     title="Heine-Borel Theorem"
                     theorem={"\\text{A subset } K \\subset \\mathbb{R}^n \\text{ is compact if and only if it is closed and bounded.}"}
                     steps={[
-                      "Statement: A subset of \\mathbb{R}^n is compact if and only if it is closed and bounded.",
-                      "Proof (=>): If K is compact, it is bounded because we can cover it with open balls B(0, n). Since it's compact, a finite subcover exists, hence K is bounded. It is closed because in a Hausdorff space (like \\mathbb{R}^n), compact sets are closed.",
-                      "Proof (<=): We use the property that a closed subset of a compact set is compact. Since K is bounded, it is contained in some large closed k-cell (hyper-rectangle).",
-                      "A k-cell is compact (by the nested interval property or bisection argument).",
-                      "Since K is a closed subset of this compact k-cell, K is itself compact. Q.E.D."
+                      "Statement: A subset of $\\mathbb{R}^n$ is compact if and only if it is closed and bounded.",
+                      "Proof (=>): If $K$ is compact, it is bounded because we can cover it with open balls $B(0, n)$. Since it's compact, a finite subcover exists, hence $K$ is bounded. It is closed because in a Hausdorff space (like $\\mathbb{R}^n$), compact sets are closed.",
+                      "Proof (<=): We use the property that a closed subset of a compact set is compact. Since $K$ is bounded, it is contained in some large closed $k$-cell (hyper-rectangle).",
+                      "A $k$-cell is compact (by the nested interval property or bisection argument).",
+                      "Since $K$ is a closed subset of this compact $k$-cell, $K$ is itself compact. Q.E.D."
                     ]}
                   />
 
