@@ -266,7 +266,7 @@ const AppContent = () => {
                         <div className="text-slate-300 text-sm">
                           <LatexRenderer text={String.raw`A metric space is a set $X$ with a function $d: X \times X \to [0, \infty)$ such that for all $x, y, z \in X$:`} />
                           <ul className="list-disc ml-6 mt-2 space-y-1">
-                            <li><InlineMath math={String.raw`d(x, y) \ge 0`}/>, and <InlineMath math={String.raw`d(x, y) = 0 \iff x = y`}/></li>
+                            <li><InlineMath math={String.raw`d(x, y) \ge 0 \quad \text{and} \quad d(x, y) = 0 \iff x = y`} /></li>
                             <li><InlineMath math={String.raw`d(x, y) = d(y, x)`}/> (Symmetry)</li>
                             <li><InlineMath math={String.raw`d(x, z) \le d(x, y) + d(y, z)`}/> (Triangle Inequality)</li>
                           </ul>
@@ -277,7 +277,7 @@ const AppContent = () => {
                         title="The Discrete Metric"
                         context={String.raw`Let $X$ be any non-empty set.`}
                         question={String.raw`Define $d(x, y) = 0$ if $x=y$ and $d(x, y) = 1$ if $x \ne y$. Is this a metric?`}
-                        solution={String.raw`Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \le d(x,y) + d(y,z)$ holds. If $x \ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be 1, so $1 \le 1$ or $1 \le 2$.`}
+                        solution={String.raw`Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \le d(x,y) + d(y,z)$ holds. If $x \ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be $1$, so $1 \le 1$ or $1 \le 2$.`}
                       />
 
                       <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
