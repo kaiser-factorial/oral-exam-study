@@ -326,7 +326,7 @@ const AppContent = () => {
                       {activeSubject === 'Linear Algebra I' && activeChapter === 3 && (
                         <>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Quotient Spaces $V/W$" inline={true} /></li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Direct Sums $V = U \\oplus W$" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Direct Sums $V = U \oplus W$" inline={true} /></li>
                         </>
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 4 && (
@@ -337,7 +337,7 @@ const AppContent = () => {
                       )}
                       {activeSubject === 'Linear Algebra I' && activeChapter === 5 && (
                         <>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Representation $[T]_\\beta^\\gamma$" inline={true} /></li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> <LatexRenderer text="Representation $[T]_\beta^\gamma$" inline={true} /></li>
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Covariant vs Contravariant</li>
                         </>
                       )}
@@ -608,7 +608,7 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Quotient Spaces & Direct Sums $V = U \\oplus W$" inline={true} />
+                      <LatexRenderer text="Quotient Spaces & Direct Sums $V = U \oplus W$" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
@@ -1224,7 +1224,7 @@ const AppContent = () => {
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      <LatexRenderer text="Matrix Representation $[T]_\\beta^\\gamma$" inline={true} />
+                      <LatexRenderer text="Matrix Representation $[T]_\beta^\gamma$" inline={true} />
                     </h3>
                     <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
