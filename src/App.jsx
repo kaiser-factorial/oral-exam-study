@@ -456,48 +456,46 @@ const AppContent = () => {
               </section>
 
               {activeSubject === 'Analysis I' && activeChapter === 1 && (
-                <div className="space-y-12">
+                <div className="space-y-12 text-left">
                   <section className="glass-card">
                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
-                      Metric Spaces
+                      Metric Spaces & The Real Line
                     </h3>
-                    <div className="prose prose-invert max-w-none space-y-6 text-left">
+                    <div className="prose prose-invert max-w-none space-y-6">
                       <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl">
                         <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Definition</h4>
-                        <div className="text-white font-medium mb-2">
-                          <LatexRenderer text={"Metric Space $(X, d)$"} />
-                        </div>
+                        <p className="text-white font-medium mb-2">The Metric Space $(X, d)$</p>
                         <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"A metric space is a set $X$ with a function $d: X \\times X \\to [0, \\infty)$ such that for all $x, y, z \\in X$:\n\n* $d(x, y) \\ge 0$, and $d(x, y) = 0 \\iff x = y$\n* $d(x, y) = d(y, x)$ (Symmetry)\n* $d(x, z) \\le d(x, y) + d(y, z)$ (Triangle Inequality)"} />
+                          <LatexRenderer text={"A **metric space** is a set $X$ with a function $d: X \\times X \\to [0, \\infty)$ such that for all $x, y, z \\in X$:\n\n1. **Positivity**: $d(x, y) \\ge 0$, and $d(x, y) = 0 \\iff x = y$.\n2. **Symmetry**: $d(x, y) = d(y, x)$.\n3. **Triangle Inequality**: $d(x, z) \\le d(x, y) + d(y, z)$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Axiom</h4>
+                        <p className="text-white font-medium mb-2">Completeness of $\mathbb{R}$</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"The real numbers $\\mathbb{R}$ are characterized by the **Least Upper Bound Property**: Every non-empty set of real numbers that is bounded above has a least upper bound (supremum) in $\\mathbb{R}$.\n\n*Note: This distinguishes $\\mathbb{R}$ from $\\mathbb{Q}$, as the set $\{x \\in \\mathbb{Q} : x^2 < 2\}$ has no supremum in $\\mathbb{Q}$.*"} />
                         </div>
                       </div>
 
                       <Example 
-                        title="The Discrete Metric"
-                        context={"Let $X$ be any non-empty set."}
-                        question={"Define $d(x, y) = 0$ if $x=y$ and $d(x, y) = 1$ if $x \\ne y$. Is this a metric?"}
-                        solution={"Yes. It trivially satisfies non-negativity and symmetry. For the triangle inequality, if $x=z$, $0 \\le d(x,y) + d(y,z)$ holds. If $x \\ne z$, then $d(x,z)=1$. Since $y$ cannot equal both $x$ and $z$ simultaneously, at least one of $d(x,y)$ or $d(y,z)$ must be 1, so $1 \\le 1$ or $1 \\le 2$."}
+                        title="The Archimedean Property"
+                        context={"This property states that the natural numbers are not bounded above in $\mathbb{R}$."}
+                        question={"Show that for any $x \\in \\mathbb{R}$, there exists an integer $n > x$."}
+                        solution={"If this were false, then $x$ would be an upper bound for $\\mathbb{N}$. By the LUB property, $\\mathbb{N}$ would have a supremum $\\alpha$. Then $\\alpha - 1$ is not an upper bound, so there exists $m \\in \\mathbb{N}$ such that $m > \\alpha - 1$. But then $m + 1 > \\alpha$, which contradicts $\\alpha$ being the supremum of $\\mathbb{N}$."}
                       />
-
-                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
-                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Axiom</h4>
-                        <p className="text-white font-medium mb-2">Least Upper Bound Property</p>
-                        <div className="text-slate-300 text-sm">
-                          <LatexRenderer text={"A set $S \\subset \\mathbb{R}$ is bounded above if there exists $M$ such that $x \\le M$ for all $x \\in S$. The Real Field $\\mathbb{R}$ has the L.U.B. property: every non-empty set of real numbers bounded above has a least upper bound (supremum) in $\\mathbb{R}$."} />
-                        </div>
-                      </div>
                     </div>
                   </section>
 
                   <ProofBuilder 
                     title="Heine-Borel Theorem"
-                    theorem={"A subset $K \\subset \\mathbb{R}^n$ is compact if and only if it is closed and bounded."}
+                    theorem={"A subset $K \\subset \\mathbb{R}^k$ is compact if and only if it is closed and bounded."}
                     steps={[
-                      "Statement: A subset of $\\mathbb{R}^n$ is compact if and only if it is closed and bounded.",
-                      "Proof (=>): If $K$ is compact, it is bounded because we can cover it with open balls $B(0, n)$. Since it's compact, a finite subcover exists, hence $K$ is bounded. It is closed because in a Hausdorff space (like $\\mathbb{R}^n$), compact sets are closed.",
-                      "Proof (<=): We use the property that a closed subset of a compact set is compact. Since $K$ is bounded, it is contained in some large closed $k$-cell (hyper-rectangle).",
-                      "A $k$-cell is compact (by the nested interval property or bisection argument).",
-                      "Since $K$ is a closed subset of this compact $k$-cell, $K$ is itself compact. Q.E.D."
+                      "If $K$ is compact, it is bounded because we can cover it with open balls $B(0, n)$. A finite subcover exists, so $K \\subset B(0, N)$.",
+                      "It is closed because in a Hausdorff space (like $\\mathbb{R}^k$), compact sets are closed.",
+                      "Conversely, if $K$ is bounded, it is contained in some large $k$-cell (hyper-rectangle) $I$.",
+                      "Every $k$-cell is compact (by the bisection and nested interval argument).",
+                      "Since $K$ is a closed subset of the compact set $I$, $K$ is itself compact. Q.E.D."
                     ]}
                   />
 
@@ -510,7 +508,7 @@ const AppContent = () => {
                       "None, it is a valid metric"
                     ]}
                     correctAnswer={2}
-                    explanation={"Take $x=0, z=2, y=1$. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since $4$ is not less than or equal to $2$, the triangle inequality fails."}
+                    explanation={"Take $x=0, z=2, y=1$. Then $d(0,2)=4$, but $d(0,1)+d(1,2) = 1+1 = 2$. Since $4 \\not\\le 2$, the triangle inequality fails."}
                   />
                 </div>
               )}
