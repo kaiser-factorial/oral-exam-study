@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, Circle, HelpCircle, ChevronDown, ChevronUp, Lightbulb, Beaker } from 'lucide-react'
+import { CheckCircle2, Circle, HelpCircle, ChevronDown, ChevronUp, Lightbulb, Beaker, ChevronRight } from 'lucide-react'
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 

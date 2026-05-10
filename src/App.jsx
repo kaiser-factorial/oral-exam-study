@@ -5,11 +5,19 @@ import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 import { Quiz, ProofBuilder, Example } from './components/Interactive'
 
-const App = () => {
-  const [view, setView] = useState('landing') // 'landing' or 'study'
-  const [activeSubject, setActiveSubject] = useState('Analysis I')
-  const [activeChapter, setActiveChapter] = useState(1)
+import { HashRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom'
+
+const AppContent = () => {
+  const navigate = useNavigate()
+  const { subjectId, chapterId } = useParams()
+  const location = useLocation()
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+
+  // Sync state with URL
+  const view = subjectId ? 'study' : 'landing'
+  const activeSubject = subjectId ? decodeURIComponent(subjectId) : 'Analysis I'
+  const activeChapter = chapterId ? parseInt(chapterId) : 1
 
   const subjects = [
     { id: 'Analysis I', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/30' },
@@ -78,8 +86,7 @@ const App = () => {
               <button
                 key={sub.id}
                 onClick={() => {
-                  setActiveSubject(sub.id)
-                  setView('study')
+                  navigate(`/study/${encodeURIComponent(sub.id)}/1`)
                 }}
                 className="group glass-card flex flex-col items-start p-8 text-left hover:scale-[1.02] active:scale-[0.98]"
               >
@@ -101,7 +108,7 @@ const App = () => {
           >
             <div className="w-[320px] p-6 flex flex-col h-full">
               <button 
-                onClick={() => setView('landing')}
+                onClick={() => navigate('/')}
                 className="flex items-center gap-2 text-slate-500 hover:text-indigo-400 transition-colors mb-10 text-sm font-bold uppercase tracking-widest"
               >
                 <ArrowLeft size={16} /> Back to Hub
@@ -112,7 +119,7 @@ const App = () => {
                 {chapters[activeSubject]?.map((chap) => (
                   <button
                     key={chap.id}
-                    onClick={() => setActiveChapter(chap.id)}
+                    onClick={() => navigate(`/study/${encodeURIComponent(activeSubject)}/${chap.id}`)}
                     className={`w-full flex items-center gap-3 p-4 rounded-xl text-sm font-medium transition-all ${
                       activeChapter === chap.id 
                         ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-lg shadow-indigo-500/5' 
@@ -158,8 +165,7 @@ const App = () => {
                   <button
                     key={s.id}
                     onClick={() => {
-                      setActiveSubject(s.id)
-                      setActiveChapter(1)
+                      navigate(`/study/${encodeURIComponent(s.id)}/1`)
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       activeSubject === s.id ? `${s.bg} ${s.color}` : 'text-slate-500 hover:text-slate-300'
