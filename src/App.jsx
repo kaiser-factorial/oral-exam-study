@@ -353,6 +353,12 @@ const AppContent = () => {
                           <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Cofactor Expansion</li>
                         </>
                       )}
+                      {activeSubject === 'Linear Algebra I' && activeChapter === 8 && (
+                        <>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Characteristic vs Minimal $p(t), m(t)$</li>
+                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Cayley-Hamilton Theorem</li>
+                        </>
+                      )}
                     </ul>
                   </div>
                   <div className="space-y-4">
@@ -382,6 +388,7 @@ const AppContent = () => {
                         {activeSubject === 'Linear Algebra I' && activeChapter === 5 && "Explain why vectors are 'contravariant' (transform inversely to the basis) and functionals are 'covariant'."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 6 && "Master the projection theorem: T is a projection iff V is the direct sum of its image and kernel."}
                         {activeSubject === 'Linear Algebra I' && activeChapter === 7 && "Explain the geometric interpretation of the determinant as the signed volume scaling factor."}
+                        {activeSubject === 'Linear Algebra I' && activeChapter === 8 && "Master the Diagonalization Test: T is diagonalizable iff its minimal polynomial splits into distinct linear factors."}
                       </li>
                     </ul>
                   </div>
@@ -629,6 +636,60 @@ const AppContent = () => {
                     ]}
                     correctAnswer={1}
                     explanation="The determinant is NOT additive. For example, let A = I and B = -I. Then det(A) = 1, det(B) = (-1)^n, but det(A+B) = det(0) = 0."
+                  />
+                </div>
+              )}
+
+              {activeSubject === 'Linear Algebra I' && activeChapter === 8 && (
+                <div className="space-y-12 text-left">
+                  <section className="glass-card">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                      <LatexRenderer text="Spectral Theory" inline={true} />
+                    </h3>
+                    <div className="prose prose-invert max-w-none space-y-6">
+                      <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 className="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Core Definitions</h4>
+                        <p className="text-white font-medium mb-2">Eigenvalues & Polynomials</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"1. **Characteristic Polynomial**: $p(t) = \\det(T - tI)$. The roots of $p(t)$ are the eigenvalues $\\lambda_i$.\n2. **Minimal Polynomial**: The unique monic polynomial $m(t)$ of smallest degree such that $m(T) = 0$.\n3. **Algebraic Multiplicity ($am$ )**: The multiplicity of $\\lambda$ as a root of $p(t)$.\n4. **Geometric Multiplicity ($gm$ )**: The dimension of the eigenspace $E_\\lambda = \\ker(T - \\lambda I)$."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-indigo-500/5 border-l-4 border-indigo-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Fundamental Theorem</h4>
+                        <p className="text-white font-medium mb-2">Cayley-Hamilton Theorem</p>
+                        <div className="text-slate-300 text-sm">
+                          <LatexRenderer text={"Every linear operator $T$ satisfies its own characteristic equation: $p(T) = 0$.\n\n**Consequence**: The minimal polynomial $m(t)$ always divides the characteristic polynomial $p(t)$. Furthermore, $m(t)$ and $p(t)$ have the exact same roots (the eigenvalues), though their multiplicities may differ."} />
+                        </div>
+                      </div>
+
+                      <div className="bg-purple-500/5 border-l-4 border-purple-500 p-6 rounded-r-xl mt-8">
+                        <h4 className="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest font-black">Diagonalizability</h4>
+                        <p className="text-white font-medium mb-2">The Diagonalization Test</p>
+                        <div className="text-slate-300 text-sm leading-relaxed">
+                          <LatexRenderer text={"An operator $T \\in \\mathcal{L}(V)$ is **diagonalizable** if and only if any of the following equivalent conditions hold:\n\n1. There exists a basis for $V$ consisting of eigenvectors of $T$.\n2. The characteristic polynomial $p(t)$ splits over $F$, AND for every eigenvalue, $am(\\lambda) = gm(\\lambda)$.\n3. The **minimal polynomial** $m(t)$ splits into **distinct linear factors**: $m(t) = (t-\\lambda_1)\\dots(t-\\lambda_k)$ with no repeated roots."} />
+                        </div>
+                      </div>
+
+                      <Example 
+                        title="Minimal vs Characteristic"
+                        context={"Let $A = \\begin{pmatrix} 2 & 1 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$."}
+                        question={"Find the characteristic and minimal polynomials. Is A diagonalizable?"}
+                        solution={"1. $p(t) = \\det(A - tI) = (2-t)^3$. Eigenvalue $\\lambda = 2$ with $am(2) = 3$.\n2. $(A - 2I) = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 0 \\\\ 0 & 0 & 0 \\end{pmatrix} \\neq 0$. Thus $m(t) \\neq (t-2)$.\n3. $(A - 2I)^2 = 0$. Thus $m(t) = (t-2)^2$.\n\nSince $m(t)$ has a **repeated root** (multiplicity 2), $A$ is **NOT** diagonalizable. Geometrically, $gm(2) = \\dim(\\ker(A-2I)) = 2$, which is less than $am(2) = 3$."}
+                      />
+                    </div>
+                  </section>
+
+                  <Quiz 
+                    question="What is the relationship between the minimal polynomial m(t) and diagonalizability?"
+                    options={[
+                      "m(t) must have the same degree as p(t).",
+                      "m(t) must have no roots.",
+                      "m(t) must be a product of distinct linear factors.",
+                      "m(t) must be equal to (t - λ) for some λ."
+                    ]}
+                    correctAnswer={2}
+                    explanation="The distinct linear factor criterion is the most powerful diagnostic for diagonalization. If any root of the minimal polynomial is repeated (e.g., (t-2)^2), the operator cannot be diagonalized."
                   />
                 </div>
               )}
