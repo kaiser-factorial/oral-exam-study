@@ -4,23 +4,26 @@ import { CheckCircle2, Circle, HelpCircle, ChevronDown, ChevronUp, Lightbulb, Be
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 
-// Helper to render text with mixed LaTeX
+import ReactMarkdown from 'react-markdown'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
+// Robust renderer using react-markdown + math plugins
 export const LatexRenderer = ({ text }) => {
   if (typeof text !== 'string') return text;
   
-  // Split by $ but keep the delimiters to identify math parts
-  const parts = text.split(/(\$[^\$]+\$)/g);
-  
   return (
-    <>
-      {parts.map((part, i) => {
-        if (part.startsWith('$') && part.endsWith('$')) {
-          const math = part.slice(1, -1);
-          return <InlineMath key={i} math={math} />;
-        }
-        return <span key={i}>{part}</span>;
-      })}
-    </>
+    <ReactMarkdown 
+      remarkPlugins={[remarkMath]}
+      rehypePlugins={[rehypeKatex]}
+      components={{
+        p: ({node, ...props}) => <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
+        ul: ({node, ...props}) => <ul className="list-disc ml-6 mt-2 mb-4 space-y-1" {...props} />,
+        li: ({node, ...props}) => <li className="text-slate-300" {...props} />,
+      }}
+    >
+      {text}
+    </ReactMarkdown>
   );
 };
 
