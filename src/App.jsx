@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, GraduationCap, ChevronRight, Menu, X, Play, Info, ArrowLeft, Home, Book, FileText } from 'lucide-react'
+import { BookOpen, GraduationCap, ChevronRight, ChevronDown, Menu, X, Play, Info, ArrowLeft, Home, Book, FileText } from 'lucide-react'
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 import { Quiz, ProofBuilder, Example, LatexRenderer } from './components/Interactive'
@@ -145,12 +145,13 @@ const AppContent = () => {
           </motion.div>
         </motion.div>
       ) : (
-        <div key="study" className="min-h-screen bg-[#0a0a0c] flex">
-          <motion.aside 
-            initial={false}
-            animate={{ width: isSidebarOpen ? 320 : 0 }}
-            className="sticky top-0 h-screen border-r border-white/5 bg-[#0d0d11]/50 backdrop-blur-xl overflow-hidden hidden lg:block"
-          >
+        <div key="study" className="min-h-screen bg-[#0a0a0c] flex flex-col lg:flex-row">
+          {activeSubject !== 'Machine Learning' && (
+            <motion.aside 
+              initial={false}
+              animate={{ width: isSidebarOpen ? 320 : 0 }}
+              className="sticky top-0 h-screen border-r border-white/5 bg-[#0d0d11]/50 backdrop-blur-xl overflow-hidden hidden lg:block"
+            >
             <div className="w-[320px] p-6 flex flex-col h-full">
               <button 
                 onClick={() => navigate('/')}
@@ -192,6 +193,7 @@ const AppContent = () => {
               </div>
             </div>
           </motion.aside>
+          )}
 
           <main className="flex-grow min-h-screen overflow-y-auto">
             <header className="sticky top-0 z-40 border-b border-white/5 bg-[#0a0a0c]/80 backdrop-blur-md px-8 py-4 flex items-center justify-between">
@@ -207,20 +209,34 @@ const AppContent = () => {
                 </h2>
               </div>
               
-              <div className="flex gap-2">
-                {subjects.map(s => (
-                  <button
-                    key={s.id}
-                    onClick={() => {
-                      navigate(`/study/${encodeURIComponent(s.id)}/1`)
-                    }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                      activeSubject === s.id ? `${s.bg} ${s.color}` : 'text-slate-500 hover:text-slate-300'
-                    }`}
-                  >
-                    {s.short}
+              <div className="flex items-center gap-6">
+                <div className="relative group">
+                  <button className="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest hover:text-white transition-colors">
+                    Study Subjects <ChevronDown size={14} />
                   </button>
-                ))}
+                  <div className="absolute top-full right-0 mt-2 w-48 py-2 bg-[#16161a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                    {subjects.filter(s => s.id !== 'Machine Learning').map(s => (
+                      <button
+                        key={s.id}
+                        onClick={() => navigate(`/study/${encodeURIComponent(s.id)}/1`)}
+                        className="w-full text-left px-4 py-2 text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+                      >
+                        {s.id}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/study/Machine%20Learning/1')}
+                  className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                    activeSubject === 'Machine Learning' 
+                      ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' 
+                      : 'text-slate-500 hover:text-indigo-400'
+                  }`}
+                >
+                  Machine Learning
+                </button>
               </div>
             </header>
 

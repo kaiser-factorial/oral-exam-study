@@ -2,8 +2,64 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PCAVisualizer } from './MathVisuals/PCAVisualizer';
 import { MatrixView, VectorView } from './MathVisuals/MatrixView';
-import { BookOpen, Zap, Layers, Cpu, ArrowRight } from 'lucide-react';
+import { BookOpen, Zap, Layers, Cpu, ArrowRight, Activity, ChevronDown } from 'lucide-react';
 import { InlineMath, BlockMath } from 'react-katex';
+import { useNavigate } from 'react-router-dom';
+
+const MLNavigation = ({ activeChapter }) => {
+  const navigate = useNavigate();
+  const chapters = [
+    { id: 1, title: 'Spectral Theory' },
+    { id: 2, title: 'Approximation' },
+    { id: 3, title: 'Latent Factors' },
+    { id: 4, title: 'LoRA' }
+  ];
+
+  return (
+    <div className="relative mb-24 px-4 max-w-3xl mx-auto">
+      {/* The Line */}
+      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2 z-0" />
+      
+      {/* The Active Progress Line */}
+      <motion.div 
+        initial={{ width: 0 }}
+        animate={{ width: `${((activeChapter - 1) / (chapters.length - 1)) * 100}%` }}
+        className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 -translate-y-1/2 z-0 shadow-[0_0_15px_rgba(99,102,241,0.5)]"
+      />
+
+      <div className="relative z-10 flex justify-between items-center">
+        {chapters.map((chap) => (
+          <div key={chap.id} className="relative flex flex-col items-center">
+            <motion.button
+              onClick={() => navigate(`/study/Machine%20Learning/${chap.id}`)}
+              whileHover={{ scale: 1.2 }}
+              className={`w-5 h-5 rounded-full border-2 transition-all duration-500 z-10 ${
+                activeChapter >= chap.id 
+                  ? 'bg-indigo-500 border-indigo-400' 
+                  : 'bg-[#0a0a0c] border-white/20'
+              }`}
+            >
+              {activeChapter === chap.id && (
+                <motion.div 
+                  layoutId="activeGlow"
+                  className="absolute inset-0 rounded-full bg-indigo-500 blur-md opacity-50"
+                />
+              )}
+            </motion.button>
+            
+            <motion.div 
+              className={`absolute top-8 whitespace-nowrap text-[10px] font-black uppercase tracking-widest transition-colors duration-500 ${
+                activeChapter === chap.id ? 'text-white' : 'text-slate-500'
+              }`}
+            >
+              {chap.title}
+            </motion.div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Section = ({ title, icon: Icon, children, active = true }) => (
   <motion.section 
@@ -32,6 +88,7 @@ export const MLDiscussion = ({ chapterId }) => {
 
   return (
     <div className="max-w-5xl mx-auto py-12 px-6">
+      <MLNavigation activeChapter={activeChapter} />
       <AnimatePresence mode="wait">
         {activeChapter === 1 && (
           <Section key="ch1" title="Spectral Theory & PCA" icon={Zap}>
