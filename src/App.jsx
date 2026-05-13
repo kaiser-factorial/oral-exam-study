@@ -4,6 +4,7 @@ import { BookOpen, GraduationCap, ChevronRight, Menu, X, Play, Info, ArrowLeft, 
 import 'katex/dist/katex.min.css'
 import { InlineMath, BlockMath } from 'react-katex'
 import { Quiz, ProofBuilder, Example, LatexRenderer } from './components/Interactive'
+import { MLDiscussion } from './components/MLDiscussion'
 
 import { HashRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom'
 
@@ -29,6 +30,7 @@ const AppContent = () => {
     { id: 'Analysis II', color: 'text-[#4295de]', bg: 'bg-[#4295de]/10', border: 'border-[#4295de]/30', desc: 'Measure theory, Lebesgue integration, and $L^p$ spaces.', short: 'Analysis II' },
     { id: 'Linear Algebra I', color: 'text-[#ffd602]', bg: 'bg-[#ffd602]/10', border: 'border-[#ffd602]/30', desc: 'Vector space duality, quotients, and spectral theory.', short: 'Lin Alg I' },
     { id: 'Linear Algebra II', color: 'text-[#d23c72]', bg: 'bg-[#d23c72]/10', border: 'border-[#d23c72]/30', desc: 'Adjoints, Jordan Form, and Multilinear Algebra.', short: 'Lin Alg II' },
+    { id: 'Machine Learning', color: 'text-[#10b981]', bg: 'bg-[#10b981]/10', border: 'border-[#10b981]/30', desc: 'SVD, Gradient Descent, and the path to LoRA.', short: 'ML' },
   ]
 
   const chapters = {
@@ -69,6 +71,12 @@ const AppContent = () => {
       { id: 6, title: 'Singular Value Decomposition' },
       { id: 7, title: 'Bilinear & Quadratic Forms' },
       { id: 8, title: 'Multilinear Algebra & Tensors' },
+    ],
+    'Machine Learning': [
+      { id: 1, title: 'Introduction: The complexity gradient' },
+      { id: 2, title: 'SVD: PCA & Latent Factors' },
+      { id: 3, title: 'Gradient: Regression & Boosting' },
+      { id: 4, title: 'Convergence: Fine-tuning & LoRA' },
     ]
   }
 
@@ -455,6 +463,9 @@ const AppContent = () => {
                 </div>
               </section>
 
+              {activeSubject === 'Machine Learning' && (
+                <MLDiscussion chapterId={activeChapter} />
+              )}
               {activeSubject === 'Analysis I' && activeChapter === 1 && (
                 <div className="space-y-12 text-left">
                   <section className="glass-card">
