@@ -73,10 +73,10 @@ const AppContent = () => {
       { id: 8, title: 'Multilinear Algebra & Tensors' },
     ],
     'Machine Learning': [
-      { id: 1, title: 'Introduction: The complexity gradient' },
-      { id: 2, title: 'SVD: PCA & Latent Factors' },
-      { id: 3, title: 'Gradient: Regression & Boosting' },
-      { id: 4, title: 'Convergence: Fine-tuning & LoRA' },
+      { id: 1, title: 'Spectral Theory & PCA' },
+      { id: 2, title: 'Low-Rank Approximation' },
+      { id: 3, title: 'Latent Factors & Collaborative Filtering' },
+      { id: 4, title: 'LoRA: Geometry of Fine-Tuning' },
     ]
   }
 
@@ -205,7 +205,11 @@ const AppContent = () => {
                   {isSidebarOpen ? <X size={18} /> : <Menu size={18} />}
                 </button>
                 <h2 className="text-sm font-bold text-slate-400 flex items-center gap-2 text-left">
-                  {activeSubject} <ChevronRight size={14} /> Chapter {activeChapter}
+                  {activeSubject} <ChevronRight size={14} /> 
+                  {activeSubject === 'Machine Learning' 
+                    ? chapters[activeSubject]?.find(c => c.id === activeChapter)?.title 
+                    : `Chapter ${activeChapter}`
+                  }
                 </h2>
               </div>
               
@@ -241,7 +245,8 @@ const AppContent = () => {
             </header>
 
             <div className="max-w-4xl mx-auto px-8 py-12 text-left">
-              <section className="mb-12 p-8 rounded-3xl bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-indigo-500/10">
+              {activeSubject !== 'Machine Learning' && (
+                <section className="mb-12 p-8 rounded-3xl bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-indigo-500/10">
                 <div className="flex items-center gap-2 text-indigo-400 text-xs font-black uppercase tracking-[0.2em] mb-4">
                   <Info size={14} /> Chapter Overview
                 </div>
@@ -478,6 +483,7 @@ const AppContent = () => {
                   </div>
                 </div>
               </section>
+              )}
 
               {activeSubject === 'Machine Learning' && (
                 <MLDiscussion chapterId={activeChapter} />
